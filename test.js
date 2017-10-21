@@ -125,7 +125,13 @@ client.on('message', message => {
       }
     });
   }
+    
+    else if (message.content.startsWith("--info")){
 
+	
+
+    }
+    
 
 });
 
