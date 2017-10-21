@@ -10,10 +10,10 @@ client.on('message', message => {
   if (message.content === '--ping') {
     message.channel.send('pang');
   }
-  if (message.content === '--exit') {
+  else if (message.content === '--exit') {
     process.exit(0);
   }
-  if (message.content === '--help') {
+  else if (message.content === '--help') {
     message.channel.send('COMMANDS:');
     message.channel.send(' --ping : pang');
     message.channel.send(' --exit : exit,');
