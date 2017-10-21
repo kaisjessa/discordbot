@@ -141,7 +141,7 @@ client.on('message', message => {
                 description: infoArray[0],
                 fields: [{
                         name: "Date",
-                        value: infoArray[1];
+                        value: infoArray[1]
                     },
                     {
                         name: "Start",
