@@ -12,12 +12,35 @@ client.on('message', message => {
   }
 
   else if (message.content === '--help') {
-    message.channel.send('*COMMANDS:*');
-    message.channel.send("``` --ping : pang \n" +
-    "--exit : exit \n" +
-    "--event : create an event```");
-    //message.channel.send(" **--exit** : exit");
-    // message.channel.send(" --event : create an event```");
+    message.channel.send({embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: client.user.avatarURL
+        },
+        title: "--help",
+        //url: "http://google.com",
+        description: "This is a test embed to showcase what they look like and what they can do.",
+        fields: [{
+            name: "--help",
+            value: "right here big boi"
+          },
+          {
+            name: "--exit",
+            value: "Make the bot quit :("
+          },
+          {
+            name: "--event",
+            value: "all dat fun event stuff"
+          }
+        ],
+        timestamp: new Date(),
+        footer: {
+          icon_url: client.user.avatarURL,
+          text: "@ansh roasted"
+        }
+      }
+    });
   }
 
 });
