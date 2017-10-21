@@ -43,7 +43,7 @@ function errData(data) {
     console.log("error");
     return "error";
 }
-}
+
 
 //Scanning all messages
 client.on('message', message => {
