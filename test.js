@@ -130,12 +130,12 @@ client.on('message', message => {
           },
           {
             name: "--event [name, date, start, duration, location]",
-            value: "name - Name of the event \n" +
-            "date - Date the event starts [ddmmyyyy] \n" +
-            "start - Time the event starts (24-hour time)[hh:mm]\n" +
-            "duration - How long the event will be \n" +
-            "location - Space separated address of the location (no commas)\n" +
-            "Make sure all parameters are comma separated"
+            value: "name - Name of the event (e.g. Halloween) \n" +
+            "date - Date the event starts (e.g. Oct 31 2017) \n" +
+            "start - Time the event starts (18:30) \n" +
+            "duration - How long the event will be (e.g. 3 hours) \n" +
+            "location - Space separated address of the location (e.g. 123 Fake Avenue, City) \n" +
+            "**Make sure all parameters are comma separated**"
           },
           {
             name: "--map [space seperated address]",
