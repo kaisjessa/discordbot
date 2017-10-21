@@ -114,44 +114,7 @@ client.on('message', message => {
          pullFirebase();
 
 
-            message.channel.send({embed: {
-                color: 342145,
-                author: {
-                  name: "Here is the information about " + name + "!",
-
-                },
-                title: name + "info",
-                //url: "http://google.com",
-                description: name,
-                fields: [{
-                    name: "Date",
-                    value: date
-                  },
-                  {
-                    name: "Start",
-                    value: start
-                  },
-                  {
-                    name: "Duration",
-                    value: duration
-                  },
-                  {
-                    name: "Location",
-                    value: location
-                  }
-                  {
-                    name: "People Attending",
-                    value: members
-                  }
-
-                ],
-                timestamp: new Date(),
-                footer: {
-                  icon_url: client.user.avatarURL,
-
-                }
-              }
-            });
+            message.channel.send("hi");
           }
 
 
