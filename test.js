@@ -48,6 +48,9 @@ function errData(data) {
 //Scanning all messages
 client.on('message', message => {
 
+
+
+
     //Map Command - Returns google map link
     //--------------------------Map-----------------------------------
     if (message.content.startsWith("--map")) {
@@ -60,8 +63,6 @@ client.on('message', message => {
         }
         message.channel.send(linkString);
     }
-
-
 
     //Create Command
     //-------------------------Create--------------------------------
