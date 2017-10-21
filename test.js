@@ -1,3 +1,9 @@
+/*
+* Discord Calendar Reminder Event Bot 
+* THacks2 - Oct 21-22 2017 
+* Kais, Andy, Zach and....Ansh
+*/
+
 var firebase = require('firebase').initializeApp({
   serviceAccount: "./THacksBot-6eff64e90619.json",
   databaseURL: "https://thacksbot.firebaseio.com/"
@@ -27,20 +33,21 @@ var ref = firebase.database().ref().child('events');
 // var obj = {test: true};
 // console.log("obj: " + obj);
 
+// Adding Discord.js
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+//Setup Message
 client.on('ready', () => {
-  console.log('I am ready!');
+  console.log('I am loaded!');
 });
 
 
+//Scanning all messages
 client.on('message', message => {
-  if (message.content === '--ping') {
-    message.channel.send('pang');
-  }
 
-  else if(message.content.startsWith("--map")) {
+    //Map Command - Returns google map link
+  if(message.content.startsWith("--map")) {
     var mapString = new Array();
     mapString = message.content.substring(5).split(" ");
     var linkString = "https://www.google.ca/maps/place/";
@@ -52,10 +59,12 @@ client.on('message', message => {
   }
 
 
-
+    //Create Command
   else if (message.content.startsWith("--create")) {
        var eventArr = new Array();
-       eventArr = message.content.substring(9).split(", ");
+
+      //Splitting message to get individual variables
+      eventArr = message.content.substring(9).split(", ");
        var name = eventArr[0];
        var date = eventArr[1];
        var start = eventArr[2];
@@ -96,7 +105,8 @@ client.on('message', message => {
          }
        });
 
-       console.log("Event array: " + eventArr);
+      console.log("Event array: " + eventArr);
+      //Prepping data for pushing
        var dataToSub = {
          eventName: name,
          eventDate: date,
@@ -104,12 +114,12 @@ client.on('message', message => {
          eventDuration: duration,
          eventLocation: location
        };
-       ref.push(dataToSub);
+
+      //pushing to firebase
+      ref.push(dataToSub);
      }
 
-
-
-
+    //Help Command
   else if (message.content === '--help') {
     message.channel.send({embed: {
         color: 3447003,
@@ -148,15 +158,21 @@ client.on('message', message => {
     });
   }
     
-    else if (message.content.startsWith("--info")){
-
-	
-
-    }
-    
 
 });
 
+/*
+
+Checklist: 
+
+- Figure out how to pull from firebase 
+- Setup reminders (mentions in general chat or dms)
+- Figure out adding members to events (will need firebase integration)
+- Firebase - Delete event from database after it is finished
+- Figure out how block Ansh from using bot
+- --events : list all events and their parameters
+
+*/
 
 
 
