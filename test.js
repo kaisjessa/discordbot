@@ -1,3 +1,18 @@
+var firebase = require('firebase');
+
+var config = {
+  apiKey: "AIzaSyA5N8baj97JFKy5izoLvglaxI98wmvRlJA",
+  authDomain: "thacksbot.firebaseapp.com",
+  databaseURL: "https://thacksbot.firebaseio.com",
+  projectId: "thacksbot",
+  storageBucket: "",
+  messagingSenderId: "479466171172"
+};
+firebase.initializeApp(config);
+var database = firebase.database();
+var ref = database.ref('events');
+
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
