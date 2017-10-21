@@ -35,26 +35,26 @@ client.on('message', message => {
         description: "This is a test embed to showcase what they look like and what they can do.",
         fields: [{
             name: "--help",
-            value: "right here big boi"
+            value: "This page"
           },
           {
             name: "--exit",
-            value: "Make the bot quit :("
+            value: "Closes the bot"
           },
           {
             name: "--event",
-            value: "all dat fun event stuff"
+            value: "TBD"
           },
           {
             name: "--map [space seperated address]",
-            value: "gives you a map link"
+            value: "Gives you a Google Maps link to the address provided"
           }
 
         ],
         timestamp: new Date(),
         footer: {
           icon_url: client.user.avatarURL,
-          
+
         }
       }
     });
