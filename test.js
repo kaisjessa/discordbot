@@ -115,15 +115,21 @@ client.on('message', message => {
     //----------------------------Info------------------------------
     else if (message.content.startsWith("--info")) {
         var ret = "It didn't work, buddy.";
+        var infoArray = [];
         var eventName = message.content.substring(7);
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
             if (temp == eventName) {
                 ret = events[k].eventLocation;
+                infoArray[0] = events[k].eventName;
+                infoArray[1] = events[k].eventDate;
+                infoArray[2] = events[k].eventStart;
+                infoArray[3] = events[k].eventDuration;
+                infoArray[4] = events[k].eventLocation;
             }
         }
-        message.channel.send(ret);
+        message.channel.send(infoArray);
     }
 
 
