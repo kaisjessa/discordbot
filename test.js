@@ -7,6 +7,7 @@ client.on('ready', () => {
 
 
 client.on('message', message => {
+<<<<<<< HEAD
   if (message.content === '--ping') {
     message.channel.send('pang');
   }
@@ -18,6 +19,10 @@ client.on('message', message => {
     message.channel.send(' --ping : pang');
     message.channel.send(' --exit : exit,');
     message.channel.send(' --event : create an event');
+=======
+  if (message.content === '--help') {
+    message.reply('Here is the correct format: \n --event');
+>>>>>>> origin/master
   }
 
 });
