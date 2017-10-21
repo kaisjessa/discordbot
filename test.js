@@ -129,7 +129,41 @@ client.on('message', message => {
                 infoArray[4] = events[k].eventLocation;
             }
         }
-        message.channel.send(infoArray);
+        message.channel.send({
+            embed: {
+                color: 342145,
+                author: {
+                    name: "Info about your event: " + infoArray[0],
+
+                },
+                title: "Event name",
+                //url: "http://google.com",
+                description: infoArray[0],
+                fields: [{
+                        name: "Date",
+                        value: infoArray[1];
+                    },
+                    {
+                        name: "Start",
+                        value: infoArray[2]
+                    },
+                    {
+                        name: "Duration",
+                        value: infoArray[3]
+                    },
+                    {
+                        name: "Location",
+                        value: infoArray[4]
+                    }
+
+                ],
+                timestamp: new Date(),
+                footer: {
+                    icon_url: client.user.avatarURL,
+
+                }
+            }
+        });
     }
 
 
