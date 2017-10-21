@@ -1,20 +1,31 @@
-var firebase = require('firebase');
+var firebase = require('firebase').initializeApp({
+  serviceAccount: "./THacksBot-6eff64e90619.json",
+  databaseURL: "https://thacksbot.firebaseio.com/"
 
-var config = {
-  apiKey: "AIzaSyA5N8baj97JFKy5izoLvglaxI98wmvRlJA",
-  authDomain: "thacksbot.firebaseapp.com",
-  databaseURL: "https://thacksbot.firebaseio.com",
-  projectId: "thacksbot",
-  storageBucket: "",
-  messagingSenderId: "479466171172"
-};
-firebase.initializeApp(config);
-var database = firebase.database();
-console.log("Database: " + database);
-var ref = database.ref('events');
-console.log("ref: " + ref);
-var obj = {test: true};
-console.log("obj: " + obj);
+});
+
+//var message = {text: "hello", timestamp: "true"};
+var ref = firebase.database().ref().child('events');
+//var logsRef = ref.child('logs');
+//var messagesRef = ref.child('messages');
+//var messageRef = messagesRef.push(message);
+
+// var config = {
+//   apiKey: "AIzaSyA5N8baj97JFKy5izoLvglaxI98wmvRlJA",
+//   authDomain: "thacksbot.firebaseapp.com",
+//   databaseURL: "https://thacksbot.firebaseio.com",
+//   projectId: "thacksbot",
+//   storageBucket: "",
+//   messagingSenderId: "479466171172"
+// };
+//
+// firebase.initializeApp(config);
+// var database = firebase.database();
+// console.log("Database: " + database);
+// var ref = database.ref('events');
+// console.log("ref: " + ref);
+// var obj = {test: true};
+// console.log("obj: " + obj);
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -53,12 +64,12 @@ client.on('message', message => {
        message.channel.send({embed: {
            color: 342145,
            author: {
-             name: "New Event!",
+             name: "A new event has been created: " + name + "!",
 
            },
-           title: name,
+           title: "Event name",
            //url: "http://google.com",
-           description: "A new event has been created",
+           description: name,
            fields: [{
                name: "Date",
                value: date
@@ -84,6 +95,16 @@ client.on('message', message => {
            }
          }
        });
+
+       console.log("Event array: " + eventArr);
+       var dataToSub = {
+         eventName: name,
+         eventDate: date,
+         eventStart: start,
+         eventDuration: duration,
+         eventLocation: location
+       };
+       ref.push(dataToSub);
      }
 
 
@@ -100,16 +121,17 @@ client.on('message', message => {
         //url: "http://google.com",
         description: "This is a test embed to showcase what they look like and what they can do.",
         fields: [{
-            name: "--help",
-            value: "This page"
-          },
-          {
             name: "--exit",
             value: "Closes the bot"
           },
           {
-            name: "--event",
-            value: "TBD"
+            name: "--event [name, date, start, duration, location]",
+            value: "name - Name of the event _(e.g. Halloween)_ \n" +
+            "date - Date the event starts _(e.g. Oct 31 2017)_ \n" +
+            "start - Time the event starts _(e.g. 18:30)_ \n" +
+            "duration - How long the event will be _(e.g. 3 hours)_ \n" +
+            "location - Space separated address of the location _(e.g. 123 Fake Avenue City)_ **NO COMMAS** \n" +
+            "``Make sure all parameters are comma separated and that there are no commas within each parameter``"
           },
           {
             name: "--map [space seperated address]",
