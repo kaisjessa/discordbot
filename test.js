@@ -11,6 +11,18 @@ client.on('message', message => {
     message.channel.send('pang');
   }
 
+  else if(message.content.startsWith("--map")) {
+    var mapString = new Array();
+    mapString = message.content.substring(5).split(" ");
+    var linkString = "https://www.google.ca/maps/place/";
+    for(var i =0; i<mapString.length; i++) {
+      if(i != mapString.length-1) linkString += mapString[i]+'+';
+      else linkString += mapString[i];
+    }
+    message.channel.send(linkString);
+
+  }
+
   else if (message.content === '--help') {
     message.channel.send({embed: {
         color: 3447003,
@@ -32,7 +44,12 @@ client.on('message', message => {
           {
             name: "--event",
             value: "all dat fun event stuff"
+          },
+          {
+            name: "--map [space seperated address]",
+            value: "gives you a map link"
           }
+
         ],
         timestamp: new Date(),
         footer: {
