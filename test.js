@@ -1,6 +1,6 @@
 /*
-* Discord Calendar Reminder Event Bot 
-* THacks2 - Oct 21-22 2017 
+* Discord Calendar Reminder Event Bot
+* THacks2 - Oct 21-22 2017
 * Kais, Andy, Zach and....Ansh
 */
 
@@ -59,7 +59,9 @@ client.on('message', message => {
   }
 
 
+
     //Create Command
+
   else if (message.content.startsWith("--create")) {
        var eventArr = new Array();
 
@@ -104,19 +106,48 @@ client.on('message', message => {
            }
          }
        });
+       else if (message.content.startsWith("--info")) {
 
-      console.log("Event array: " + eventArr);
-      //Prepping data for pushing
-       var dataToSub = {
-         eventName: name,
-         eventDate: date,
-         eventStart: start,
-         eventDuration: duration,
-         eventLocation: location
-       };
+            message.channel.send({embed: {
+                color: 342145,
+                author: {
+                  name: "Here is the information about " + name + "!",
 
-      //pushing to firebase
-      ref.push(dataToSub);
+                },
+                title: name + "info",
+                //url: "http://google.com",
+                description: name,
+                fields: [{
+                    name: "Date",
+                    value: date
+                  },
+                  {
+                    name: "Start",
+                    value: start
+                  },
+                  {
+                    name: "Duration",
+                    value: duration
+                  },
+                  {
+                    name: "Location",
+                    value: location
+                  }
+                  {
+                    name: "People Attending",
+                    value: members
+                  }
+
+                ],
+                timestamp: new Date(),
+                footer: {
+                  icon_url: client.user.avatarURL,
+
+                }
+              }
+            });
+          }
+
      }
 
     //Help Command
@@ -157,15 +188,15 @@ client.on('message', message => {
       }
     });
   }
-    
+
 
 });
 
 /*
 
-Checklist: 
+Checklist:
 
-- Figure out how to pull from firebase 
+- Figure out how to pull from firebase
 - Setup reminders (mentions in general chat or dms)
 - Figure out adding members to events (will need firebase integration)
 - Firebase - Delete event from database after it is finished
