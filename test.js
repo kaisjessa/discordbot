@@ -6,8 +6,8 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-  if (message.content === 'pang') {
-    message.reply('pong');
+  if (message.content === '--help') {
+    message.reply('Here is the correct format: \n --event');
   }
 });
 
