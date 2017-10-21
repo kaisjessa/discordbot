@@ -95,6 +95,8 @@ client.on('message', message => {
            }
          }
        });
+
+       console.log("Event array: " + eventArr);
      }
 
 
