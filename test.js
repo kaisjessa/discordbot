@@ -23,7 +23,6 @@ function gotData(data) {
   keys = Object.keys(events);
   console.log("something good happened Andy");
   console.log(keys);
-  console.log(events[keys[0]].eventName);
 }
 
 function errData(err) {
@@ -117,13 +116,13 @@ client.on('message', message => {
     else if (message.content.startsWith("--info")) {
         var ret = "It didn't work, buddy.";
         var eventName = message.content.substring(7);
-        // for (var i = 0; i < keys.length; i++) {
-        //     var k = keys[i];
-        //     var temp = events[k].eventName;
-        //     if (temp == eventName) {
-        //         ret = events[k].eventLocation;
-        //     }
-        // }
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var temp = events[k].eventName;
+            if (temp == eventName) {
+                ret = events[k].eventLocation;
+            }
+        }
         message.channel.send(ret);
     }
 
