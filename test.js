@@ -64,12 +64,12 @@ client.on('message', message => {
        message.channel.send({embed: {
            color: 342145,
            author: {
-             name: "New Event!",
+             name: "A new event has been created: " + name + "!",
 
            },
-           title: name,
+           title: "Event name",
            //url: "http://google.com",
-           description: "A new event has been created",
+           description: name,
            fields: [{
                name: "Date",
                value: date
@@ -134,8 +134,8 @@ client.on('message', message => {
             "date - Date the event starts _(e.g. Oct 31 2017)_ \n" +
             "start - Time the event starts _(e.g. 18:30)_ \n" +
             "duration - How long the event will be _(e.g. 3 hours)_ \n" +
-            "location - Space separated address of the location _(e.g. 123 Fake Avenue, City)_ \n" +
-            "``Make sure all parameters are comma separated``"
+            "location - Space separated address of the location _(e.g. 123 Fake Avenue City)_ **NO COMMAS** \n" +
+            "``Make sure all parameters are comma separated and that there are no commas within each parameter``"
           },
           {
             name: "--map [space seperated address]",
