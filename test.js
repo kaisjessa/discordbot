@@ -4,11 +4,11 @@ var firebase = require('firebase').initializeApp({
 
 });
 
-var message = {text: "hello", timestamp: "true"};
-var ref = firebase.database().ref().child('node-test');
-var logsRef = ref.child('logs');
-var messagesRef = ref.child('messages');
-var messageRef = messagesRef.push(message);
+//var message = {text: "hello", timestamp: "true"};
+var ref = firebase.database().ref().child('events');
+//var logsRef = ref.child('logs');
+//var messagesRef = ref.child('messages');
+//var messageRef = messagesRef.push(message);
 
 // var config = {
 //   apiKey: "AIzaSyA5N8baj97JFKy5izoLvglaxI98wmvRlJA",
@@ -97,6 +97,14 @@ client.on('message', message => {
        });
 
        console.log("Event array: " + eventArr);
+       var dataToSub = {
+         eventName: name,
+         eventDate: date,
+         eventStart: start,
+         eventDuration: duration,
+         eventLocation: location
+       };
+       ref.push(dataToSub);
      }
 
 
