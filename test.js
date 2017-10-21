@@ -14,6 +14,8 @@ var firebase = require('firebase').initializeApp({
 });
 
 var ref = firebase.database().ref().child('events');
+var events;
+var keys;
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -31,9 +33,7 @@ function pullFirebase() {
 
     function gotData(data) {
         events = data.val();
-        return events;
-        //  keys = Object.keys(events);
-        //  return keys;
+        keys = Object.keys(events);
     }
 }
 
@@ -115,14 +115,13 @@ client.on('message', message => {
     //----------------------------Info------------------------------
     else if (message.content.startsWith("--info")) {
         var ret = "It didn't work, buddy.";
-        var events = pullFirebase();
-        var keys = Object.keys(events);
+        pullFirebase();
         var eventName = message.content.substring(7);
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
             if (temp == eventName) {
-                var ret = events[k].eventLocation;
+                ret = events[k].eventLocation;
             }
         }
         message.channel.send(ret);
