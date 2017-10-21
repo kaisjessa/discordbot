@@ -129,8 +129,13 @@ client.on('message', message => {
             value: "Closes the bot"
           },
           {
-            name: "--event",
-            value: "TBD"
+            name: "--event [name, date, start, duration, location]",
+            value: "name - Name of the event \n" +
+            "date - Date the event starts [ddmmyyyy] \n" +
+            "start - Time the event starts (24-hour time)[hh:mm]\n" +
+            "duration - How long the event will be \n" +
+            "location - Space separated address of the location (no commas)\n" +
+            "Make sure all parameters are comma separated"
           },
           {
             name: "--map [space seperated address]",
