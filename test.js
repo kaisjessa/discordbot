@@ -1,20 +1,31 @@
-var firebase = require('firebase');
+var firebase = require('firebase').initializeApp({
+  serviceAccount: "./THacksBot-6eff64e90619.json",
+  databaseURL: "https://thacksbot.firebaseio.com/"
 
-var config = {
-  apiKey: "AIzaSyA5N8baj97JFKy5izoLvglaxI98wmvRlJA",
-  authDomain: "thacksbot.firebaseapp.com",
-  databaseURL: "https://thacksbot.firebaseio.com",
-  projectId: "thacksbot",
-  storageBucket: "",
-  messagingSenderId: "479466171172"
-};
-firebase.initializeApp(config);
-var database = firebase.database();
-console.log("Database: " + database);
-var ref = database.ref('events');
-console.log("ref: " + ref);
-var obj = {test: true};
-console.log("obj: " + obj);
+});
+
+var message = {text: "hello", timestamp: "true"};
+var ref = firebase.database().ref().child('node-test');
+var logsRef = ref.child('logs');
+var messagesRef = ref.child('messages');
+var messageRef = messagesRef.push(message);
+
+// var config = {
+//   apiKey: "AIzaSyA5N8baj97JFKy5izoLvglaxI98wmvRlJA",
+//   authDomain: "thacksbot.firebaseapp.com",
+//   databaseURL: "https://thacksbot.firebaseio.com",
+//   projectId: "thacksbot",
+//   storageBucket: "",
+//   messagingSenderId: "479466171172"
+// };
+//
+// firebase.initializeApp(config);
+// var database = firebase.database();
+// console.log("Database: " + database);
+// var ref = database.ref('events');
+// console.log("ref: " + ref);
+// var obj = {test: true};
+// console.log("obj: " + obj);
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
