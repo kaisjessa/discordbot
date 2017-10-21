@@ -1,15 +1,11 @@
 /*
 * Discord Calendar Reminder Event Bot
 * THacks2 - Oct 21-22 2017
-<<<<<<< HEAD
-* Kais, Andy, Zach and....Ansh
-=======
 * Kais, Andy, Zach, and...
 * A
 * N
 * S
 * H
->>>>>>> origin/master
 */
 
 var firebase = require('firebase').initializeApp({
@@ -18,28 +14,8 @@ var firebase = require('firebase').initializeApp({
 
 });
 
-//var message = {text: "hello", timestamp: "true"};
 var ref = firebase.database().ref().child('events');
-//var logsRef = ref.child('logs');
-//var messagesRef = ref.child('messages');
-//var messageRef = messagesRef.push(message);
 
-// var config = {
-//   apiKey: "AIzaSyA5N8baj97JFKy5izoLvglaxI98wmvRlJA",
-//   authDomain: "thacksbot.firebaseapp.com",
-//   databaseURL: "https://thacksbot.firebaseio.com",
-//   projectId: "thacksbot",
-//   storageBucket: "",
-//   messagingSenderId: "479466171172"
-// };
-//
-// firebase.initializeApp(config);
-// var database = firebase.database();
-// console.log("Database: " + database);
-// var ref = database.ref('events');
-// console.log("ref: " + ref);
-// var obj = {test: true};
-// console.log("obj: " + obj);
 
 // Adding Discord.js
 const Discord = require('discord.js');
@@ -51,10 +27,27 @@ client.on('ready', () => {
 });
 
 
+function pullFirebase() {
+  ref.on('value', gotData, errData);
+  function gotData(data) {
+    var dataList = [];
+    window.events = data.val();
+    window.keys = Object.keys(events);
+    console.log(keys);
+  }
+
+
+
+  function errData(data) {
+    console.log("error");
+  }
+}
+
 //Scanning all messages
 client.on('message', message => {
 
     //Map Command - Returns google map link
+//--------------------------Map-----------------------------------
   if(message.content.startsWith("--map")) {
     var mapString = new Array();
     mapString = message.content.substring(5).split(" ");
@@ -69,7 +62,7 @@ client.on('message', message => {
 
 
     //Create Command
-
+//-------------------------Create--------------------------------
   else if (message.content.startsWith("--create")) {
        var eventArr = new Array();
 
@@ -114,7 +107,11 @@ client.on('message', message => {
            }
          }
        });
+     }
+//----------------------------Info------------------------------
        else if (message.content.startsWith("--info")) {
+         pullFirebase();
+
 
             message.channel.send({embed: {
                 color: 342145,
@@ -156,9 +153,8 @@ client.on('message', message => {
             });
           }
 
-     }
 
-    //Help Command
+//--------------------------Help-------------------------------
   else if (message.content === '--help') {
     message.channel.send({embed: {
         color: 3447003,
