@@ -13,9 +13,22 @@ var firebase = require('firebase').initializeApp({
 
 });
 
-var ref = firebase.database().ref().child('events');
-var events;
-var keys;
+var database = firebase.database();
+var ref = database.ref('events');
+
+ref.on('value', gotData, errData);
+
+function gotData(data) {
+  events = data.val();
+  keys = Object.keys(events);
+  console.log("something good happened Andy");
+}
+
+function errData(err) {
+  console.log("sad face");
+  console.log(err);
+
+}
 
 
 const Discord = require('discord.js');
@@ -29,24 +42,6 @@ client.on('ready', () => {
     console.log('I am loaded!');
 });
 
-
-function pullFirebase() {
-    ref.on('value', gotData, errData);
-
-    function gotData(data) {
-        events = data.val();
-        keys = Object.keys(events);
-    }
-
-
-
-
-    function errData(data) {
-      console.log("error");
-      return "error";
-    }
-
-}
 
 
 //Scanning all messages
@@ -119,15 +114,14 @@ client.on('message', message => {
     //----------------------------Info------------------------------
     else if (message.content.startsWith("--info")) {
         var ret = "It didn't work, buddy.";
-        pullFirebase();
         var eventName = message.content.substring(7);
-        for (var i = 0; i < keys.length; i++) {
-            var k = keys[i];
-            var temp = events[k].eventName;
-            if (temp == eventName) {
-                ret = events[k].eventLocation;
-            }
-        }
+        // for (var i = 0; i < keys.length; i++) {
+        //     var k = keys[i];
+        //     var temp = events[k].eventName;
+        //     if (temp == eventName) {
+        //         ret = events[k].eventLocation;
+        //     }
+        // }
         message.channel.send(ret);
     }
 
