@@ -29,10 +29,11 @@ client.on('ready', () => {
 
 function pullFirebase() {
   ref.on('value', gotData, errData);
+
   function gotData(data) {
     var dataList = [];
-    window.events = data.val();
-    window.keys = Object.keys(events);
+    events = data.val();
+    keys = Object.keys(events);
     console.log(keys);
   }
 
