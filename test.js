@@ -1,7 +1,15 @@
 /*
 * Discord Calendar Reminder Event Bot
 * THacks2 - Oct 21-22 2017
+<<<<<<< HEAD
 * Kais, Andy, Zach and....Ansh
+=======
+* Kais, Andy, Zach, and...
+* A
+* N
+* S
+* H
+>>>>>>> origin/master
 */
 
 var firebase = require('firebase').initializeApp({
