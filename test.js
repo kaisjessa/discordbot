@@ -166,6 +166,16 @@ client.on('message', message => {
         });
     }
 
+    //-----------------------ListEvents---------------------------
+
+    else if (message.content == '--listevents') {
+	for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var temp = events[k].eventName;
+            message.channel.send(i +': ' +temp);
+        }
+    }
+
 
     //--------------------------Help-------------------------------
     else if (message.content === '--help') {
