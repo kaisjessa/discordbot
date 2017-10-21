@@ -16,6 +16,8 @@ var firebase = require('firebase').initializeApp({
 var ref = firebase.database().ref().child('events');
 var events;
 var keys;
+
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -35,13 +37,15 @@ function pullFirebase() {
         events = data.val();
         keys = Object.keys(events);
     }
-}
 
 
 
-function errData(data) {
-    console.log("error");
-    return "error";
+
+    function errData(data) {
+      console.log("error");
+      return "error";
+    }
+
 }
 
 
