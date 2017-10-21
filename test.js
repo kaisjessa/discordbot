@@ -119,9 +119,8 @@ client.on('message', message => {
         },
         title: "--help",
         //url: "http://google.com",
-        description: "Here is a list of all the commands and what they do",
+        description: "This is a test embed to showcase what they look like and what they can do.",
         fields: [{
-          {
             name: "--exit",
             value: "Closes the bot"
           },
