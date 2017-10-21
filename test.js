@@ -15,11 +15,11 @@ client.on('message', message => {
   }
   else if (message.content === '--help') {
     message.channel.send('COMMANDS:');
-    message.channel.send("``` --ping : pang \n --exit : exit \n --event : create an event```");
+    message.channel.send("``` `css_--ping_` : pang \n --exit : exit \n --event : create an event```");
     // message.channel.send(" --exit : exit");
     // message.channel.send(" --event : create an event```");
   }
-
+ 
 });
 
 
