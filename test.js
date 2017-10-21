@@ -32,8 +32,9 @@ function pullFirebase() {
 
   function gotData(data) {
     events = data.val();
-    keys = Object.keys(events);
-    return keys;
+    return events;
+  //  keys = Object.keys(events);
+  //  return keys;
     }
   }
 
@@ -112,11 +113,18 @@ client.on('message', message => {
      }
 //----------------------------Info------------------------------
        else if (message.content.startsWith("--info")) {
-         var keys = pullFirebase();
+         var ret = "It didn't work, buddy.";
+         var events = pullFirebase();
+         var keys = Object.keys(events);
          var eventName = message.content.substring(7);
-
-
-            message.channel.send("hi");
+         for(var i = 0; i<keys.length; i++) {
+           var k = keys[i];
+           var temp = events[k].eventName;
+           if(temp==eventName) {
+             var ret = events[k].eventLocation;
+           }
+         }
+            message.channel.send(ret);
           }
 
 
