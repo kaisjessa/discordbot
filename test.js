@@ -22,6 +22,8 @@ function gotData(data) {
   events = data.val();
   keys = Object.keys(events);
   console.log("something good happened Andy");
+  console.log(keys);
+  console.log(events[keys[0]].eventName);
 }
 
 function errData(err) {
