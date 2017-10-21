@@ -20,8 +20,56 @@ client.on('message', message => {
       else linkString += mapString[i];
     }
     message.channel.send(linkString);
-
   }
+
+
+
+  else if (message.content.startsWith("--create")) {
+       var eventArr = new Array();
+       eventArr = message.content.substring(9).split(", ");
+       var name = eventArr[0];
+       var date = eventArr[1];
+       var start = eventArr[2];
+       var duration = eventArr[3];
+       var location = eventArr[4];
+       message.channel.send({embed: {
+           color: 342145,
+           author: {
+             name: "New Event!",
+
+           },
+           title: name,
+           //url: "http://google.com",
+           description: "A new event has been created",
+           fields: [{
+               name: "Date",
+               value: date
+             },
+             {
+               name: "Start",
+               value: start
+             },
+             {
+               name: "Duration",
+               value: duration
+             },
+             {
+               name: "Location",
+               value: location
+             }
+
+           ],
+           timestamp: new Date(),
+           footer: {
+             icon_url: client.user.avatarURL,
+
+           }
+         }
+       });
+     }
+
+
+
 
   else if (message.content === '--help') {
     message.channel.send({embed: {
