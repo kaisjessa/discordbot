@@ -31,16 +31,17 @@ function pullFirebase() {
   ref.on('value', gotData, errData);
 
   function gotData(data) {
-    var dataList = [];
     events = data.val();
     keys = Object.keys(events);
-    console.log(keys);
+    return keys;
+    }
   }
 
 
 
   function errData(data) {
     console.log("error");
+    return "error";
   }
 }
 
@@ -119,47 +120,11 @@ client.on('message', message => {
      }
 //----------------------------Info------------------------------
        else if (message.content.startsWith("--info")) {
-         pullFirebase();
+         var keys = pullFirebase();
+         var eventName = message.content.substring(7);
 
 
-            message.channel.send({embed: {
-                color: 342145,
-                author: {
-                  name: "Here is the information about " + name + "!",
-
-                },
-                title: name + "info",
-                //url: "http://google.com",
-                description: name,
-                fields: [{
-                    name: "Date",
-                    value: date
-                  },
-                  {
-                    name: "Start",
-                    value: start
-                  },
-                  {
-                    name: "Duration",
-                    value: duration
-                  },
-                  {
-                    name: "Location",
-                    value: location
-                  }
-                  {
-                    name: "People Attending",
-                    value: members
-                  }
-
-                ],
-                timestamp: new Date(),
-                footer: {
-                  icon_url: client.user.avatarURL,
-
-                }
-              }
-            });
+            message.channel.send("hi");
           }
 
 
