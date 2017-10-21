@@ -64,13 +64,6 @@ client.on('message', message => {
     message.channel.send(linkString);
   }
 
-    else if (message.content.startsWith("--geog")) {
-
-	message.channel.send("In Part 2, Pi encounter the nightmare of many readers; stranded on lifeboat in middle of nothing. On top of that, there is tiger in close proximity and Pi cannot escaped. Pi faces an unique problem. Quote(tiger and lifeboat manual).  Pi begins the face the problem with an interesting solution;keeping the tiger alive. He use his unique knowledge and past experience to solve this problem. Most people would never think of such methods and the readers often would either think that is the foolish idea or a brilliant idea after his explanation.");	
-    }
-
-
-
     //Create Command
 //-------------------------Create--------------------------------
   else if (message.content.startsWith("--create")) {
@@ -117,7 +110,21 @@ client.on('message', message => {
            }
          }
        });
-     }
+  }
+
+    //--------------------------AllEvents--------------------------
+
+    else if (message.content.startsWith("--AllEvents")) {
+	keys = pullFirebase();
+
+	for(var i = 0; i < keys.length; i++) {
+	    message.channel.send({embed: {
+		
+	    }});
+	}
+	
+    }
+    
 //----------------------------Info------------------------------
        else if (message.content.startsWith("--info")) {
          var keys = pullFirebase();
