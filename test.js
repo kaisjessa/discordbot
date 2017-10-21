@@ -10,7 +10,11 @@ var config = {
 };
 firebase.initializeApp(config);
 var database = firebase.database();
+console.log(database);
 var ref = database.ref('events');
+console.log(ref);
+var obj = {test: true};
+console.log(obj);
 
 
 const Discord = require('discord.js');
