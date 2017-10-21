@@ -1,7 +1,11 @@
 /*
-* Discord Calendar Reminder Event Bot 
-* THacks2 - Oct 21-22 2017 
-* Kais, Andy, Zach and....Ansh
+* Discord Calendar Reminder Event Bot
+* THacks2 - Oct 21-22 2017
+* Kais, Andy, Zach, and...
+* A
+* N
+* S
+* H
 */
 
 var firebase = require('firebase').initializeApp({
@@ -157,15 +161,15 @@ client.on('message', message => {
       }
     });
   }
-    
+
 
 });
 
 /*
 
-Checklist: 
+Checklist:
 
-- Figure out how to pull from firebase 
+- Figure out how to pull from firebase
 - Setup reminders (mentions in general chat or dms)
 - Figure out adding members to events (will need firebase integration)
 - Firebase - Delete event from database after it is finished
