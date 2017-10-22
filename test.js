@@ -29,6 +29,7 @@ function gotData(data) {
 function errData(err) {
   console.log("sad face");
   console.log(err);
+
 }
 
 const Discord = require('discord.js');
@@ -36,10 +37,18 @@ const client = new Discord.Client();
 //var $ = require('jQuery');
 
 
+
+// Adding Discord.js
+
 //Setup Message
 client.on('ready', () => {
     console.log('I am loaded!');
+
+
 });
+
+
+//COMMENTED OUT FOR NOW BUT ITS IMPORTANT DONT DELETE PLS
 
 //--------------------------Reminders------------------------
 
@@ -54,11 +63,23 @@ function CheckReminders() {
     
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
-	infoArray[0] = events[k].eventName;
+	//  var attList = Object.keys(events[k].guestlist);
+	//  var betterList = [];
+        infoArray[0] = events[k].eventName;
         infoArray[1] = events[k].eventDate;
         infoArray[2] = events[k].eventStart;
+	/*  for(var j = 0; j<attList.length; j++) {
+            betterList[j]=attList[j].toString();
+            console.log(betterList[j]);
+	    }
+	    
+        */
 	
-        //Grab Guestlist information and add to array	
+        //Grab Guestlist information and add to array
+	
+	
+	
+	
 	eventStartMinutesArr = [];
  	eventStartMinutesArr = infoArray[2].split(':');
 	var eventStartMinutes = (60 * parseInt(eventStartMinutesArr[0])) + parseInt(eventStartMinutesArr[1]);
@@ -82,6 +103,11 @@ function CheckReminders() {
 }
 
 function SendReminder(eventName, eventDate, eventTime) {
+    
+    // commentnsole.log("yep");
+    
+    //for each person in the guestlist send a reminder to them
+    
     
     for(var i = 0; i<keys.length;i++) {
 	var k = keys[i];
@@ -107,11 +133,14 @@ function SendReminder(eventName, eventDate, eventTime) {
 	client.fetchUser(id)
             .then(user => {user.send("Reminder: " + eventName + " starts soon")})
     }
+    
 }
 
 setInterval(function() {
     CheckReminders();
 }, 59000);
+
+
 
 //Scanning all messages
 client.on('message', message => {
@@ -143,8 +172,7 @@ client.on('message', message => {
     
     //Create Command
     //-------------------------Create--------------------------------
-    else if (message.content.startsWith("--create") || message.content.startsWith("--Create"))
-    {
+    else if (message.content.startsWith("--create") || message.content.startsWith("--Create")) {
         var eventArr = new Array();
 	
         //Splitting message to get individual variables
@@ -157,7 +185,9 @@ client.on('message', message => {
         var duration = eventArr[3];
         var location = eventArr[4];
 	
-	//Regex Expressions	
+	//Regex Expressions
+	
+	
 	//var dateREG = new RegExp("\d\d-\d\d-\d\d\d\d");
 	var dateREG = "/\d\d-\d\d-\d\d\d\d/";
 	//var startdurationREG = new RegExp("\d\d:\d\d");
@@ -168,45 +198,46 @@ client.on('message', message => {
 	    
 	    message.channel.send("Please follow this date and time format \n Date : `` MM-DD-YYYY`` \n Start Time : ``HH:MM`` \n Duration : ``HH:MM`` ");
 	    
+	    
 	} else {
-	    message.channel.send(
+
+	message.channel.send({
+            embed: {
+                color: 342145,
+                author: {
+                    name: "A new event has been created: " + name + "!",
+		    
+                },
+                title: "Event name",
+                //url: "http://google.com",
+                description: name,
+                // FIXME: elds: [
 		{
-		    embed: {
-			color: 342145,
-			author: {
-			    name: "A new event has been created: " + name + "!",
-			    
-			},
-			title: "Event name",
-			//url: "http://google.com",
-			description: name,
-			// FIXME: elds: [
-			{
-			    name: "Date",
-			    value: date
-			},
-			{
-			    name: "Start",
-			    value: start
-			},
-			{
-			    name: "Duration",
-			    value: duration
-			},
-			{
-			    name: "Location",
-			    value: location
-			}
-			
-		    ],
-		    timestamp: new Date(),
-		    footer:
-		    {
-			icon_url: client.user.avatarURL,
-			
-		    }
-		}
-	    });
+		    name: "Date",
+		    value: date
+                },
+		{
+                    name: "Start",
+                    value: start
+                },
+		{
+                    name: "Duration",
+                    value: duration
+                },
+		{
+                    name: "Location",
+                    value: location
+                }
+		
+	    ],
+            timestamp: new Date(),
+            footer:
+	    {
+                icon_url: client.user.avatarURL,
+		
+            }
+        }
+			    });
 	
         console.log("Event array: " + eventArr);
         //Prepping data for pushing
@@ -234,6 +265,10 @@ client.on('message', message => {
 		console.log("IT WORKED ZACH: " + userData);
             }
 	}
+	
+	
+	
+	
     }
 }
 	  
@@ -414,7 +449,9 @@ client.on('message', message => {
 			       {
 				   name: "--imnotgoing [eventName]",
 				   value: "Removes you from the guest list"
-			       }		       
+			       }
+			       
+			       
 			       
 			      ],
 		      
@@ -431,5 +468,16 @@ client.on('message', message => {
 	      message.channel.send("``Invalid Command``");
 	  }
 	 });
+
+/*
+  
+  Checklist:
+  
+  - Setup reminders (mentions in general chat or dms)
+  - Firebase - Delete event from database after it is finished
+  - Figure out how block Ansh from using bot
+  
+  
+*/
 
 client.login('MzcxNDYyMzY0NjA5OTA0NjYx.DM1_QQ.ihUJA1Pdl_BRyf12zGclLhgA05c');
