@@ -43,6 +43,7 @@ client.on('ready', () => {
     console.log('I am loaded!');
 });
 
+/* //COMMENTED OUT FOR NOW BUT ITS IMPORTANT DONT DELETE PLS
 
 var today = new Date()
 
@@ -72,6 +73,8 @@ function SendReminder(eventName, eventDate, eventTime) {
      
      message.channel.send('');
 }
+
+*/
 
 
 //Scanning all messages
