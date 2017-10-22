@@ -44,6 +44,7 @@ const client = new Discord.Client();
 client.on('ready', () => {
     console.log('I am loaded!');
 
+
 });
 
 
@@ -52,31 +53,45 @@ client.on('ready', () => {
 //--------------------------Reminders------------------------
 
 
-
-
 function CheckReminders() {
     var today = new Date()
-    console.log("Checking Reminders but it may not work");
+    console.log("Checking Reminders...");
     var currentDate = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
     var currentTimeMinutes = (60 * today.getHours()) + today.getMinutes();
 
     var infoArray = [];
+
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
+      //  var attList = Object.keys(events[k].guestlist);
+      //  var betterList = [];
         infoArray[0] = events[k].eventName;
         infoArray[1] = events[k].eventDate;
         infoArray[2] = events[k].eventStart;
+    /*  for(var j = 0; j<attList.length; j++) {
+        betterList[j]=attList[j].toString();
+        console.log(betterList[j]);
+      }
+
+        */
+
+        //Grab Guestlist information and add to array
+
+
 
 
 	eventStartMinutesArr = [];
  	eventStartMinutesArr = infoArray[2].split(':');
   var eventStartMinutes = (60 * parseInt(eventStartMinutesArr[0])) + parseInt(eventStartMinutesArr[1]);
+  console.log("EVENT NAME: " + infoArray[0]);
   console.log("eventStartMinutes: " + eventStartMinutes);
   console.log("currentTimeMinutes: " + currentTimeMinutes);
   console.log("currentDate: " + currentDate);
   console.log("eventDate: " + infoArray[1]);
+
  	//if its the day of the event and it is 60 minutes away from the start of the event
  	if (eventStartMinutes - 60 < currentTimeMinutes && currentDate == infoArray[1] && currentTimeMinutes < eventStartMinutes) {
+
        console.log("reminder sent");
  	     SendReminder(infoArray[0], infoArray[1], infoArray[2]);
  	}
@@ -84,22 +99,42 @@ function CheckReminders() {
 }
 
 function SendReminder(eventName, eventDate, eventTime) {
+
   console.log("yep");
 
-  let str = "<@192460832490258432>"; //Just assuming some random tag.
+  //for each person in the guestlist send a reminder to them
 
-//removing any sign of < @ ! >...
-//the exclamation symbol comes if the user has a nickname on the server.
-let id = str.replace(/[<@!>]/g, '');
 
-client.fetchUser(id)
-    .then(user => {user.send("Hello I dmed you!")})
+  for(var i = 0; i<keys.length;i++) {
+    var k = keys[i];
+    if(events[k].eventName.toLowerCase() == eventName.toLowerCase()) {
+      var attList = Object.keys(events[k].guestlist);
+      var idList = events[k].guestlist;
+      var bestList = [];
+      for(var j=0; j<attList.length;j++) {
+        var tempUserName = attList[j];
+        bestList[j] = idList[tempUserName];
+        }
+        console.log("Guest ids: " + bestList);
+      }
+    }
+
+  //removing any sign of < @ ! >...
+  //the exclamation symbol comes if the user has a nickname on the server.
+
+  for (var i = 0; i < bestList.length; i++) {
+    let str = bestList[i];
+    let id = str.replace(/[<@!>]/g, '');
+
+    client.fetchUser(id)
+        .then(user => {user.send("Reminder: " + eventName + " starts soon")})
+  }
 
 }
 
 setInterval(function() {
   CheckReminders();
-}, 5000);
+}, 10000);
 
 
 
@@ -327,12 +362,15 @@ client.on('message', message => {
         var count = 1;
         if(events[k].eventName.toLowerCase() == message.content.substring(12).toLowerCase()) {
           var attList = Object.keys(events[k].guestlist);
-          var idList = [];
+          var idList = events[k].guestlist;
           for(var j=0; j<attList.length;j++) {
-            console.log(idList);
+            var tempUserName = attList[j];
+            bestList[j] = idList[tempUserName];
             message.channel.send(count + ". " + attList[j]);
+
             count++;
           }
+          console.log(bestList);
         }
       }
     }
@@ -412,10 +450,9 @@ client.on('message', message => {
 Checklist:
 
 - Setup reminders (mentions in general chat or dms)
-- Figure out adding members to events (will need firebase integration)
 - Firebase - Delete event from database after it is finished
 - Figure out how block Ansh from using bot
-- --events : list all events and their parameters
+
 
 */
 
