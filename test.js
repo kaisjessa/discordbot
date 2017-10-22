@@ -325,7 +325,7 @@ client.on('message', message => {
                     {
                         name: "--guestlist [eventName]",
                         value: "Shows you the guest list"
-                    }
+                    },
                     {
                         name: "--imnotgoing [eventName]",
                         value: "Removes you from the guest list"
