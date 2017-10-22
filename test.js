@@ -272,8 +272,8 @@ client.on('message', message => {
                             "date - Date the event starts _(e.g. Oct 31 2017)_ \n" +
                             "start - Time the event starts _(e.g. 18:30)_ \n" +
                             "duration - How long the event will be _(e.g. 3 hours)_ \n" +
-                            "location - Space separated address of the location _(e.g. 123 Fake Avenue City)_ **NO COMMAS** \n" +
-                            "``Make sure all parameters are comma separated and that there are no commas within each parameter``"
+                            "location - Space separated address of the location _(e.g. 123 Fake Avenue City) \n"
+
                     },
                     {
                         name: "--map [eventname]",
@@ -291,10 +291,13 @@ client.on('message', message => {
                     },
                     {
                         name: "--info [eventName]",
-                        value: "Shows you all the details of the event"
+                        value: "Shows you all the details of the event "
                     }
 
+
+
                 ],
+
                 timestamp: new Date(),
                 footer: {
                     icon_url: client.user.avatarURL,
