@@ -271,10 +271,10 @@ client.on('message', message => {
     }
 
     else if(message.content.startsWith("--guestlist")) {
-      for(var i =0; i<keys.length; i++) {
+      for(var i = 0; i<keys.length; i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
-          console.log(ref.child(k).child('guestlist').key);
+          console.log(events[k].child('guestlist'));
         }
       }
     }
