@@ -90,7 +90,11 @@ function CheckReminders() {
   console.log("eventDate: " + infoArray[1]);
 
  	//if its the day of the event and it is 60 minutes away from the start of the event
- 	if (eventStartMinutes - 60 < currentTimeMinutes && currentDate == infoArray[1] && currentTimeMinutes < eventStartMinutes) {
+ 	if ((((eventStartMinutes - 60) == currentTimeMinutes) ||
+  ((eventStartMinutes - 30) == currentTimeMinutes) ||
+  ((eventStartMinutes - 10) == currentTimeMinutes) ||
+  (eventStartMinutes == currentTimeMinutes))
+  && currentDate == infoArray[1] && currentTimeMinutes < eventStartMinutes) {
 
        console.log("reminder sent");
  	     SendReminder(infoArray[0], infoArray[1], infoArray[2]);
@@ -134,7 +138,7 @@ function SendReminder(eventName, eventDate, eventTime) {
 
 setInterval(function() {
   CheckReminders();
-}, 10000);
+}, 59000);
 
 
 
@@ -380,6 +384,7 @@ client.on('message', message => {
         if(events[k].eventName.toLowerCase() == message.content.substring(12).toLowerCase()) {
           var attList = Object.keys(events[k].guestlist);
           var idList = events[k].guestlist;
+          var bestList = [];
           for(var j=0; j<attList.length;j++) {
             var tempUserName = attList[j];
             bestList[j] = idList[tempUserName];
