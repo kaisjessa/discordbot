@@ -253,13 +253,13 @@ client.on('message', message => {
     }
 
     else if(message.content.startsWith("--imgoing")) {
-      k = keys[i];
       var userId = message.author.id;
       var userName = message.author.username;
       message.channel.send("<@" + userId + ">");
       console.log(userId);
 
       for(var i=0; i<keys.length; i++) {
+        var k = keys[i]
         if(events[k].eventName.toLowerCase() == message.content.substring(10)) {
           var userData = {
             userName: userId
