@@ -47,34 +47,34 @@ client.on('ready', () => {
 
 var today = new Date()
 
-function CheckReminders() {
-    var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
-    var currentTime = today.getHours() + '-' + today.getMinutes() + '-' today.getSeconds();
-    
-    var infoArray = [];
-    for (var i = 0; i < keys.length; i++) {
-        var k = keys[i];
-        infoArray[0] = events[k].eventName;
-        infoArray[1] = events[k].eventDate;
-        infoArray[2] = events[k].eventStart;
-        infoArray[3] = events[k].eventDuration;
-        infoArray[4] = events[k].eventLocation;	
-
-    }
-}
-
-function SendReminder(eventName, eventDate, eventTime) {
-
-    message.channel.send(
-	{
-	    embed: {
-
-		
-		
-	    }
-	}
-    ); 
-}
+// function CheckReminders() {
+//     var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
+//     var currentTime = today.getHours() + '-' + today.getMinutes() + '-' today.getSeconds();
+//
+//     var infoArray = [];
+//     for (var i = 0; i < keys.length; i++) {
+//         var k = keys[i];
+//         infoArray[0] = events[k].eventName;
+//         infoArray[1] = events[k].eventDate;
+//         infoArray[2] = events[k].eventStart;
+//         infoArray[3] = events[k].eventDuration;
+//         infoArray[4] = events[k].eventLocation;
+//
+//     }
+// }
+//
+// function SendReminder(eventName, eventDate, eventTime) {
+//
+//     message.channel.send(
+// 	{
+// 	    embed: {
+//
+//
+//
+// 	    }
+// 	}
+//     );
+// }
 
 
 
@@ -229,7 +229,7 @@ client.on('message', message => {
 	     for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
-            message.channel.send(listIndex + " " + temp);
+            message.channel.send(listIndex + ". " + temp);
             listIndex++;
         }
     }
