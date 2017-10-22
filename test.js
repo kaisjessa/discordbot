@@ -202,11 +202,22 @@ ref.push(dataToSub);
             message.channel.send(listIndex + " " + temp);
             listIndex++;
         }
+    }
 
+    else if (message.content.startsWith("--delete")) {
+      var del = false;
+      for(int i=0; i<keys.length; i++) {
+        var k = keys[i];
+        if(!del && events[k].eventName==message.content.substring(9)) {
+          message.channel.send("``"  + events[k].eventName + " has been deleted``");
+          del = true;
+          ref.child(keys[i]).remove();
+        }
+      }
 
-
-
-
+      if(!del) {
+        message.channel.send("``Event could not be found``");
+      }
     }
 
 
@@ -236,9 +247,14 @@ ref.push(dataToSub);
                         value: "Gives you a Google Maps link to the address provided"
                     },
 
-			 {
+			              {
                         name: "--listevents",
                         value: "Gives a list of all the current events"
+                    },
+
+                    {
+                        name: "--delete [eventName]",
+                        value: "Deletes that event"
                     }
 
                 ],
