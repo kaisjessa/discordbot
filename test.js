@@ -55,14 +55,24 @@ client.on('message', message => {
     //Map Command - Returns google map link
     //--------------------------Map-----------------------------------
     if (message.content.startsWith("--map")) {
-        var mapString = new Array();
-        mapString = message.content.substring(5).split(" ");
+        var eventName = message.content.substring(5);
         var linkString = "https://www.google.ca/maps/place/";
-        for (var i = 0; i < mapString.length; i++) {
-            if (i != mapString.length - 1) linkString += mapString[i] + '+';
-            else linkString += mapString[i];
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            var temp = events[k].eventName;
+            if (temp == eventName) {
+              var tempMap = events[k].eventLocation;
+              break;
+            }
         }
-        message.channel.send(linkString);
+
+        var mapString = new Array();
+        mapString = tempMap.split(" ");
+        for (var j = 0; j < mapString.length; j++) {
+            if (j != mapString.length - 1) linkString += mapString[j] + '+';
+            else linkString += mapString[ij;
+        }
+        message.channel.send(```linkString```);
     }
 
     //Create Command
@@ -224,7 +234,7 @@ ref.push(dataToSub);
                             "``Make sure all parameters are comma separated and that there are no commas within each parameter``"
                     },
                     {
-                        name: "--map [space seperated address]",
+                        name: "--map [eventname]",
                         value: "Gives you a Google Maps link to the address provided"
                     },
 
