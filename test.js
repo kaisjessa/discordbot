@@ -255,6 +255,10 @@ ref.push(dataToSub);
                     {
                         name: "--delete [eventName]",
                         value: "Deletes that event"
+                    },
+                    {
+                        name: "--info [eventName]",
+                        value: "Shows you all the details of the event"
                     }
 
                 ],
