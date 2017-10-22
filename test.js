@@ -48,34 +48,34 @@ client.on('ready', () => {
 
 //--------------------------Reminders------------------------
 
-var today = new Date()
-
-function CheckReminders() {
-    var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
-    var currentTimeMinutes = (60 * today.getHours()) + today.getMinutes();
-    
-    var infoArray = [];
-    for (var i = 0; i < keys.length; i++) {
-        var k = keys[i];
-        infoArray[0] = events[k].eventName;
-        infoArray[1] = events[k].eventDate;
-        infoArray[2] = events[k].eventStart;
-	
-	
-	eventStartMinutesArr[] = infoarray[2].split(':');
-	eventStartMinutes = (60 * eventStartMinutesArr[0]) + eventStartMinutesArr[1];
-
-	//if its the day of the event and it is 60 minutes away from the start of the event
-	if (eventStartMinutes - 60 == currentTimeMinutes && currentDate == infoArray[1]) {
-	    SendReminder(infoarray[0], infoArray[1], infoArray[2]);
-	}
-     }
-}
-
-function SendReminder(eventName, eventDate, eventTime) {
-     
-     message.channel.send("!!Reminder that " + eventName + " starts in an Hour !!");
-}
+// var today = new Date()
+//
+// function CheckReminders() {
+//     var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
+//     var currentTimeMinutes = (60 * today.getHours()) + today.getMinutes();
+//     
+//     var infoArray = [];
+//     for (var i = 0; i < keys.length; i++) {
+//         var k = keys[i];
+//         infoArray[0] = events[k].eventName;
+//         infoArray[1] = events[k].eventDate;
+//         infoArray[2] = events[k].eventStart;
+//
+//
+// 	eventStartMinutesArr[] = infoarray[2].split(':');
+// 	eventStartMinutes = (60 * eventStartMinutesArr[0]) + eventStartMinutesArr[1];
+//
+// 	//if its the day of the event and it is 60 minutes away from the start of the event
+// 	if (eventStartMinutes - 60 == currentTimeMinutes && currentDate == infoArray[1]) {
+// 	    SendReminder(infoarray[0], infoArray[1], infoArray[2]);
+// 	}
+//      }
+// }
+//
+// function SendReminder(eventName, eventDate, eventTime) {
+//
+//      message.channel.send("!!Reminder that " + eventName + " starts in an Hour !!");
+// }
 
 //Scanning all messages
 client.on('message', message => {
