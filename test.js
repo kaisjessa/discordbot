@@ -227,7 +227,7 @@ client.on('message', message => {
 	     for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
-            message.channel.send(listIndex + ". " + temp);=
+            message.channel.send(listIndex + ". " + temp);
             listIndex++;
         }
     }
