@@ -360,11 +360,10 @@ client.on('message', message => {
 
     //-------------------Guests----------------------------------
 
-    else if(message.content.startsWith("--imgoing") || message.content.startsWith("--Imgoing")) {
+    else if(message.content.toLowerCase().startsWith("--imgoing")) {
       var userId = message.author.id;
       var userName = message.author.username;
       var eventFound = false;
-      message.channel.send("<@" + userId + ">");
 
       for(var i=0; i<keys.length; i++) {
         var k = keys[i]
@@ -387,13 +386,27 @@ client.on('message', message => {
 
     }
 
-    else if(message.content.startsWith("--imnotgoing") || message.content.startsWith("--Imnotgoing")) {
-      var correctEvent = message.content.substring(12);
+    else if(message.content.toLowerCase().startsWith("--imnotgoing")) {
+      var correctEvent = message.content.substring(13)
       var userName = message.author.username;
+      var userId = message.author.id;
       for(var i=0; i<keys.length;i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase()==correctEvent.toLowerCase()) {
-          ref.child(k).child('guestlist').username.remove();
+          console.log("Stage 1");
+          var attList = Object.keys(events[k].guestlist);
+          var idList = events[k].guestlist;
+          var bestList = [];
+          for(var j=0; j<attList.length;j++) {
+            //attlist[j] = userName;
+            if(userName==attList[j] || userId==idList[attList[j]]) {
+              console.log("SOMETHING");
+              ref.child(k).child('guestlist').child(userName).remove();
+              message.channel.send("<@" + userId + ">" + ", you have been removed from the guest list for " + correctEvent);
+            }
+
+          }
+          console.log(bestList);
         }
       }
     }
