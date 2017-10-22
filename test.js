@@ -274,7 +274,7 @@ client.on('message', message => {
       for(var i =0; i<keys.length; i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
-          console.log(ref.child(k).child('guestlist'));
+          console.log(ref.child(k).child('guestlist').val());
         }
       }
     }
