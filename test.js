@@ -279,9 +279,9 @@ client.on('message', message => {
                 fields: [{
                         name: "--create [name, date, start, duration, location]",
                         value: "name - Name of the event _(e.g. Halloween)_ \n" +
-                            "date - Date the event starts _(e.g. Oct 31 2017)_ \n" +
+                            "date - Date the event starts _(e.g. MM-DD-YYYY (31-10-2017))_ \n" +
                             "start - Time the event starts _(e.g. 18:30)_ \n" +
-                            "duration - How long the event will be _(e.g. 3 hours)_ \n" +
+                            "duration - How long the event will be _(e.g. 03:00 (3 Hours))_ \n" +
                             "location - Space separated address of the location _(e.g. 123 Fake Avenue City) \n"
 
                     },
