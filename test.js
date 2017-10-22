@@ -256,12 +256,13 @@ client.on('message', message => {
 
     }
 
-    else if(message.content.startsWith("--whosgoing")) {
+    else if(message.content.startsWith("--guestlist")) {
       for(var i =0; i<keys.length; i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
-          console.log(events[k].guestlist);
-          message.channel.send(events[k].guestlist);
+          var guestArr = events[k].guestlist;
+          console.log(guestArr);
+          message.channel.send(guestArr[i]);
         }
       }
     }
@@ -310,7 +311,7 @@ client.on('message', message => {
                         value: "Adds your name to the guest list"
                     },
                     {
-                        name: "--whosgoing [eventName]",
+                        name: "--guestlist [eventName]",
                         value: "Shows you the guest list"
                     }
 
