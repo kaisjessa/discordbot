@@ -66,12 +66,15 @@ client.on('message', message => {
         }
 
         var mapString = new Array();
-        mapString = tempMap.split(" ");
-        for (var j = 0; j < mapString.length; j++) {
-            if (j != mapString.length - 1) linkString += mapString[j] + '+';
-            else linkString += mapString[j];
-        }
-        message.channel.send(linkString);
+        if(tempMap == ":(") message.channel.send("No event specified :(");
+        else {
+          mapString = tempMap.split(" ");
+          for (var j = 0; j < mapString.length; j++) {
+              if (j != mapString.length - 1) linkString += mapString[j] + '+';
+              else linkString += mapString[j];
+            }
+            message.channel.send(linkString);
+      }
     }
 
     //Create Command
@@ -220,11 +223,7 @@ ref.push(dataToSub);
                 //url: "http://google.com",
                 description: "This is a test embed to showcase what they look like and what they can do.",
                 fields: [{
-                        name: "--exit",
-                        value: "Closes the bot"
-                    },
-                    {
-                        name: "--event [name, date, start, duration, location]",
+                        name: "--create [name, date, start, duration, location]",
                         value: "name - Name of the event _(e.g. Halloween)_ \n" +
                             "date - Date the event starts _(e.g. Oct 31 2017)_ \n" +
                             "start - Time the event starts _(e.g. 18:30)_ \n" +
