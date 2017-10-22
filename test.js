@@ -237,13 +237,14 @@ ref.push(dataToSub);
     }
 
     else if (message.content.startsWith("--delete")) {
-	var del = false;
-	for(int i=0; i<keys.length; i++) {
-          var k = keys[i];
-          if(!del && events[k].eventName==message.content.substring(9)) {
-            message.channel.send("``"  + events[k].eventName + " has been deleted``");
-            del = true;
-            ref.child(keys[i]).remove();
+
+      var del = false;
+      for(var i=0; i<keys.length; i++) {
+        var k = keys[i];
+        if(!del && events[k].eventName==message.content.substring(9)) {
+          message.channel.send("``"  + events[k].eventName + " has been deleted``");
+          del = true;
+          ref.child(keys[i]).remove();
         }
       }
 
@@ -287,6 +288,10 @@ ref.push(dataToSub);
                     {
                         name: "--delete [eventName]",
                         value: "Deletes that event"
+                    },
+                    {
+                        name: "--info [eventName]",
+                        value: "Shows you all the details of the event"
                     }
 
                 ],
