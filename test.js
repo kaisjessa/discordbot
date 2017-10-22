@@ -97,12 +97,12 @@ function CheckReminders() {
   && currentDate == infoArray[1] && currentTimeMinutes < eventStartMinutes) {
 
        console.log("reminder sent");
- 	     SendReminder(infoArray[0], infoArray[1], infoArray[2]);
+ 	     SendReminder(infoArray[0], infoArray[1], infoArray[2],(eventStartMinutes - currentTimeMinutes));
  	}
      }
 }
 
-function SendReminder(eventName, eventDate, eventTime) {
+function SendReminder(eventName, eventDate, eventTime,MinutesToEvent) {
 
   console.log("yep");
 
@@ -131,7 +131,7 @@ function SendReminder(eventName, eventDate, eventTime) {
     let id = str.replace(/[<@!>]/g, '');
 
     client.fetchUser(id)
-        .then(user => {user.send("Reminder: " + eventName + " starts soon")})
+        .then(user => {user.send("Reminder: " + eventName + " starts in : "+MinutesToEvent + " minutes!")})
   }
 
 }
