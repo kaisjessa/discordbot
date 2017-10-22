@@ -206,7 +206,7 @@ ref.push(dataToSub);
 
     else if (message.content.startsWith("--delete")) {
       var del = false;
-      for(int i=0; i<keys.length; i++) {
+      for(var i=0; i<keys.length; i++) {
         var k = keys[i];
         if(!del && events[k].eventName==message.content.substring(9)) {
           message.channel.send("``"  + events[k].eventName + " has been deleted``");
