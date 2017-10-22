@@ -42,6 +42,7 @@ const client = new Discord.Client();
 //Setup Message
 client.on('ready', () => {
     console.log('I am loaded!');
+    client.user.setGame('https://goo.gl/K9FkJS');
 
 
 });
