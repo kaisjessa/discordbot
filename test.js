@@ -48,6 +48,7 @@ client.on('ready', () => {
 
 //--------------------------Reminders------------------------
 
+
 var today = new Date()
 
 function CheckReminders() {
@@ -99,6 +100,7 @@ function SendReminder(eventName, eventDate, eventTime) {
         }
     });
 }
+
 
 //Scanning all messages
 client.on('message', message => {
@@ -270,7 +272,7 @@ client.on('message', message => {
 	     for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
-            message.channel.send(listIndex + ". " + temp);
+            message.channel.send("```" + listIndex + ". " + temp + "```");
             listIndex++;
         }
     }
@@ -305,7 +307,7 @@ client.on('message', message => {
 
       for(var i=0; i<keys.length; i++) {
         var k = keys[i]
-        if(events[k].eventName.toLowerCase() == message.content.substring(10)) {
+        if(events[k].eventName.toLowerCase() == message.content.substring(10).toLowerCase()) {
           var userData = {};
           userData[userName] = userId;
           ref.child(k).child('guestlist').update(userData);
@@ -316,10 +318,17 @@ client.on('message', message => {
     }
 
     else if(message.content.startsWith("--guestlist")) {
-      for(var i =0; i<keys.length; i++) {
+      for(var i = 0; i<keys.length; i++) {
         k = keys[i];
-        if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
-          console.log(ref.child(k).child('guestlist').key());
+        var count = 1;
+        if(events[k].eventName.toLowerCase() == message.content.substring(12).toLowerCase()) {
+          var attList = Object.keys(events[k].guestlist);
+          var idList = [];
+          for(var j=0; j<attList.length;j++) {
+            console.log(idList);
+            message.channel.send(count + ". " + attList[j]);
+            count++;
+          }
         }
       }
     }
