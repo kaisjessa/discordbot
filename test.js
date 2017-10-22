@@ -103,6 +103,7 @@ function CheckReminders() {
 
 
 	if(parseInt(dateYear) < today.getFullYear()){
+	    console.log("Deleting - function problem");
 	    deleteMessage();
 	} else if (parseInt(dateYear) == today.getFullYear() && parseInt(dateMonth) < today.getMonth()){
 	    deleteMessage();
