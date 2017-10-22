@@ -80,13 +80,10 @@ function SendReminder(eventName, eventDate, eventTime) {
 
 //Scanning all messages
 client.on('message', message => {
-
-
-
-
+    
     //Map Command - Returns google map link
     //--------------------------Map-----------------------------------
-    if (message.content.startsWith("--map")) {
+    if (message.content.startsWith("--map") || message.content.startsWith("--Map")) {
         var eventName = message.content.substring(6);
         var linkString = "https://www.google.ca/maps/place/";
         var tempMap = ":(";
@@ -111,7 +108,7 @@ client.on('message', message => {
 
     //Create Command
     //-------------------------Create--------------------------------
-    else if (message.content.startsWith("--create")) {
+    else if (message.content.startsWith("--create") || message.content.startsWith("--Create")) {
         var eventArr = new Array();
 
         //Splitting message to get individual variables
@@ -167,18 +164,19 @@ client.on('message', message => {
           eventLocation: location
         };
 
-//pushing to firebase
-ref.push(dataToSub);
+	//pushing to firebase
+	ref.push(dataToSub);
     }
+    
     //----------------------------Info------------------------------
-    else if (message.content.startsWith("--info")) {
+    else if (message.content.startsWith("--info") || message.content.startsWith("--Info")) {
         var ret = "It didn't work, buddy.";
         var infoArray = [];
         var eventName = message.content.substring(7);
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
-            if (temp == eventName) {
+            if (temp.toLowerCase == eventName.toLowerCase) {
                 ret = events[k].eventLocation;
                 infoArray[0] = events[k].eventName;
                 infoArray[1] = events[k].eventDate;
@@ -226,7 +224,7 @@ ref.push(dataToSub);
 
     //-----------------------ListEvents---------------------------
 
-    else if (message.content == '--listevents') {
+    else if (message.content == '--listevents' || message.content == ("--Listevents")) {
       var listIndex = 1;
 	     for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
@@ -236,18 +234,20 @@ ref.push(dataToSub);
         }
     }
 
-    else if (message.content.startsWith("--delete")) {
+    //----------------------Delete-------------------------------
 
-      var del = false;
-      for(var i=0; i<keys.length; i++) {
-        var k = keys[i];
-        if(!del && events[k].eventName==message.content.substring(9)) {
-          message.channel.send("``"  + events[k].eventName + " has been deleted``");
-          del = true;
-          ref.child(keys[i]).remove();
-        }
-      }
+    else if (message.content.startsWith("--delete") || message.content.startsWith("--Delete")) {
 
+	var del = false;
+	for(var i=0; i<keys.length; i++) {
+            var k = keys[i];
+            if(!del && events[k].eventName==message.content.substring(9)) {
+		message.channel.send("``"  + events[k].eventName + " has been deleted``");
+		del = true;
+		ref.child(keys[i]).remove();
+            }
+	}
+	
 	if(!del) {
             message.channel.send("``Event could not be found``");
 	}
@@ -255,7 +255,7 @@ ref.push(dataToSub);
     }
 
     //--------------------------Help-------------------------------
-    else if (message.content === '--help') {
+    else if (message.content === '--help' || message.content == "--Help") {
         message.channel.send({
             embed: {
                 color: 3447003,
@@ -316,8 +316,5 @@ Checklist:
 - --events : list all events and their parameters
 
 */
-
-
-
 
 client.login('MzcxNDYyMzY0NjA5OTA0NjYx.DM1_QQ.ihUJA1Pdl_BRyf12zGclLhgA05c');
