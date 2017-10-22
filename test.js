@@ -86,12 +86,12 @@ function CheckReminders() {
 	console.log("currentDate: " + currentDate);
 	console.log("eventDate: " + infoArray[1]);
 
-	
+
 	var dateArr = [];
 	dateArr = infoArray[1].split('-');
 	var dateMonth = dateArr[0];
 	var dateDay = dateArr[1];
-	var dateYear = dateArr[3]; 
+	var dateYear = dateArr[3];
 
 	function deleteMessage() {
 
@@ -108,7 +108,7 @@ function CheckReminders() {
 	} else if (parseInt(dateYear) == today.getFullYear() && parseInt(dateMonth) < today.getMonth()){
 	    deleteMessage();
 	} else if (parseInt(dateMonth) == today.getMonth() && parseInt(dateDay) < today.getDate()){
-	    deleteMessage();   
+	    deleteMessage();
 	} else if (parseInt(dateDay) == today.getDate && currentTimeMinutes > eventStartMinutes){
 	    deleteMessage();
 	}
@@ -298,12 +298,14 @@ client.on('message', message => {
     //----------------------------Info------------------------------
     else if (message.content.startsWith("--info") || message.content.startsWith("--Info")) {
         var ret = "It didn't work, buddy.";
+        var eventExists = false;
         var infoArray = [];
         var eventName = message.content.substring(7);
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
             if (temp.toLowerCase() == eventName.toLowerCase()) {
+              eventExists = true;
                 ret = events[k].eventLocation;
                 infoArray[0] = events[k].eventName;
                 infoArray[1] = events[k].eventDate;
@@ -312,6 +314,7 @@ client.on('message', message => {
                 infoArray[4] = events[k].eventLocation;
             }
         }
+        if(eventExists) {
         message.channel.send({
             embed: {
                 color: 342145,
@@ -347,6 +350,11 @@ client.on('message', message => {
                 }
             }
         });
+      }
+
+      else {
+        message.channel.send("ERROR: " + eventName + " is not an existing event");
+      }
     }
 
     //-----------------------ListEvents---------------------------
