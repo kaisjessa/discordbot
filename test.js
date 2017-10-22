@@ -70,7 +70,7 @@ client.on('message', message => {
         mapString = tempMap.split(" ");
         for (var j = 0; j < mapString.length; j++) {
             if (j != mapString.length - 1) linkString += mapString[j] + '+';
-            else linkString += mapString[ij;
+            else linkString += mapString[j];
         }
         message.channel.send(```linkString```);
     }
