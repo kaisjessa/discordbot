@@ -97,31 +97,36 @@ function CheckReminders() {
 
 	    ref.child(keys[i]).remove();
 
+
+
+
 	    //delete event
 	    console.log(infoArray[0] + " - Deleted becaues it is already over");
 	}
 
-	console.log("dateYear: " + dateYear);
-	console.log("todayYear" + today.getFullYear());
+	console.log("dateDay: " + dateDay);
+	console.log("todayDay" + today.getDate());
 
 
 	if(parseInt(dateYear) < today.getFullYear()){
 	    console.log("Deleting - function problem");
 	    deleteMessage();
-	} else if (parseInt(dateYear) == today.getFullYear() && parseInt(dateMonth) < today.getMonth()){
+	} else if (parseInt(dateYear) == today.getFullYear() && parseInt(dateMonth) < (today.getMonth() + 1)){
 	    deleteMessage();
-	} else if (parseInt(dateMonth) == today.getMonth() && parseInt(dateDay) < today.getDate()){
+	} else if (parseInt(dateMonth) == (today.getMonth() + 1)  && parseInt(dateDay) < today.getDate()){
 	    deleteMessage();
-	} else if (parseInt(dateDay) == today.getDate && currentTimeMinutes > eventStartMinutes){
+	} else if ((parseInt(dateDay) == today.getDate()) && currentTimeMinutes > eventStartMinutes){
 	    deleteMessage();
 	}
 
 	//if its the day of the event and it is 60 minutes away from the start of the event
- 	else if ((((eventStartMinutes - 60) == currentTimeMinutes) ||
+ 	else if (
+    (
+      ((eventStartMinutes - 60) == currentTimeMinutes) ||
 		  ((eventStartMinutes - 30) == currentTimeMinutes) ||
 		  ((eventStartMinutes - 10) == currentTimeMinutes) ||
 		  (eventStartMinutes == currentTimeMinutes))
-		 && currentDate == infoArray[1] && currentTimeMinutes < eventStartMinutes) {
+		 && currentDate == infoArray[1]) {
 
 	    console.log("reminder sent");
  	    SendReminder(infoArray[0], infoArray[1], infoArray[2],(eventStartMinutes - currentTimeMinutes));
@@ -165,7 +170,7 @@ function SendReminder(eventName, eventDate, eventTime,MinutesToEvent) {
 
 setInterval(function() {
   CheckReminders();
-}, 59000);
+}, 1000);
 
 
 
