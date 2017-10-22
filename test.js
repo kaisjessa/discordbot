@@ -261,9 +261,10 @@ client.on('message', message => {
       for(var i=0; i<keys.length; i++) {
         var k = keys[i]
         if(events[k].eventName.toLowerCase() == message.content.substring(10)) {
-          var userData = {
-            userId: userId
-          };
+          var userData[`${userName}`] = userId
+          // var userData = {
+          //   userName: userId
+          // };
           ref.child(k).child('guestlist').child(userName).set(userData);
         }
       }
@@ -274,10 +275,7 @@ client.on('message', message => {
       for(var i =0; i<keys.length; i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
-          var guestArr = events[k].guestlist;
-          console.log(guestArr);
-          message.channel.send(guestArr.bob);
-          //show the guestlist
+          console.log(ref.child(k).child('guestlist'))
         }
       }
     }
@@ -328,6 +326,10 @@ client.on('message', message => {
                     {
                         name: "--guestlist [eventName]",
                         value: "Shows you the guest list"
+                    }
+                    {
+                        name: "--imnotgoing [eventName]",
+                        value: "Removes you from the guest list"
                     }
 
 
