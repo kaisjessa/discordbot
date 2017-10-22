@@ -521,11 +521,7 @@ client.on('message', message => {
                     {
                         name: "--imnotgoing [eventName]",
                         value: "Removes you from the guest list"
-                    },
-		    {
-			name: "--CheckReminders",
-			value: "Checks all events for reminder times (this happens anyway every minute)"
-		    }
+                    }
 
                 ],
 
