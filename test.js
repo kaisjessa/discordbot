@@ -275,7 +275,10 @@ client.on('message', message => {
         k = keys[i];
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
           var attList = Object.keys(events[k].guestlist);
+          var idList = [];
           for(var j=0; j<attList.length;j++) {
+            idList[j] = events[k].guestlist.[attList[j]];
+            console.log(idList);
             message.channel.send('@' + attList[j]);
           }
         }
