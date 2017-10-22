@@ -255,8 +255,8 @@ client.on('message', message => {
     else if(message.content.startsWith("--imgoing")) {
       k = keys[i];
       var user = message.author.id;
-      message.channel.send(user);
-      console.log("<@" + user + ">");
+      message.channel.send("<@" + user + ">");
+      console.log(user);
 
     }
 
