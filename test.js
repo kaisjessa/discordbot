@@ -6,6 +6,7 @@
  * N
  * S
  * H
+ *
  */
 var firebase = require('firebase').initializeApp({
     serviceAccount: "./THacksBot-6eff64e90619.json",
