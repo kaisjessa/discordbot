@@ -247,6 +247,23 @@ client.on('message', message => {
 	    //pushing to firebase
 	    ref.push(dataToSub);
 
+      var userId = message.author.id;
+      var userName = message.author.username;
+      message.channel.send("<@" + userId + ">" + ", you have been added to the guest list!");
+
+      for(var i=0; i<keys.length; i++) {
+        var k = keys[i];
+        if(events[k].eventName.toLowerCase() == name.toLowerCase()) {
+          var userData = {};
+          userData[userName] = userId;
+          ref.child(k).child('guestlist').update(userData);
+          console.log("IT WORKED ZACH: " + userData);
+        }
+      }
+
+
+
+
 	}
     }
 
