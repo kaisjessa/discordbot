@@ -158,7 +158,7 @@ function SendReminder(eventName, eventDate, eventTime,MinutesToEvent) {
     let id = str.replace(/[<@!>]/g, '');
 
     client.fetchUser(id)
-        .then(user => {user.send("Reminder: " + eventName + " starts in : ```"+MinutesToEvent + "minutes!```")})
+        .then(user => {user.send("Reminder: " + eventName + " starts in : ```"+MinutesToEvent + " minutes!```")})
   }
 
 }
