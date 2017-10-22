@@ -274,7 +274,7 @@ client.on('message', message => {
       for(var i = 0; i<keys.length; i++) {
         k = keys[i];
         var count = 1;
-        if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
+        if(events[k].eventName.toLowerCase() == message.content.substring(12).toLowerCase()) {
           var attList = Object.keys(events[k].guestlist);
           var idList = [];
           for(var j=0; j<attList.length;j++) {
