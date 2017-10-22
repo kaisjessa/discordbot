@@ -45,6 +45,38 @@ client.on('ready', () => {
 });
 
 
+var today = new Date()
+
+function CheckReminders() {
+    var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
+    var currentTime = today.getHours() + '-' + today.getMinutes() + '-' today.getSeconds();
+    
+    var infoArray = [];
+    for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        infoArray[0] = events[k].eventName;
+        infoArray[1] = events[k].eventDate;
+        infoArray[2] = events[k].eventStart;
+        infoArray[3] = events[k].eventDuration;
+        infoArray[4] = events[k].eventLocation;	
+
+    }
+}
+
+function SendReminder(eventName, eventDate, eventTime) {
+
+    message.channel.send(
+	{
+	    embed: {
+
+		
+		
+	    }
+	}
+    ); 
+}
+
+
 
 //Scanning all messages
 client.on('message', message => {
@@ -200,13 +232,7 @@ ref.push(dataToSub);
             message.channel.send(listIndex + " " + temp);
             listIndex++;
         }
-
-
-
-
-
     }
-
 
     //--------------------------Help-------------------------------
     else if (message.content === '--help') {
@@ -252,15 +278,12 @@ ref.push(dataToSub);
             }
         });
     }
-
-
 });
 
 /*
 
 Checklist:
 
-- Figure out how to pull from firebase
 - Setup reminders (mentions in general chat or dms)
 - Figure out adding members to events (will need firebase integration)
 - Firebase - Delete event from database after it is finished
