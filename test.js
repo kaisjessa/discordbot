@@ -174,7 +174,7 @@ client.on('message', message => {
 
     //Map Command - Returns google map link
     //--------------------------Map-----------------------------------
-    if (message.content.startsWith("--map") || message.content.startsWith("--Map")) {
+    if (message.content.toLowerCase().startsWith("--map")) {
         var eventName = message.content.substring(6);
         var linkString = "https://www.google.ca/maps/place/";
         var tempMap = ":(";
@@ -199,7 +199,7 @@ client.on('message', message => {
 
     //Create Command
     //-------------------------Create--------------------------------
-    else if (message.content.startsWith("--create") || message.content.startsWith("--Create")) {
+    else if (message.content.toLowerCase().startsWith("--create")) {
         var eventArr = new Array();
 
         //Splitting message to get individual variables
@@ -299,7 +299,7 @@ client.on('message', message => {
     }
 
     //----------------------------Info------------------------------
-    else if (message.content.startsWith("--info") || message.content.startsWith("--Info")) {
+    else if (message.content.toLowerCase().startsWith("--info")) {
         var ret = "It didn't work, buddy.";
         var eventExists = false;
         var infoArray = [];
@@ -362,7 +362,7 @@ client.on('message', message => {
 
     //-----------------------ListEvents---------------------------
 
-    else if (message.content == '--listevents' || message.content == ("--Listevents")) {
+    else if (message.content.toLowerCase().startsWith('--listevents')) {
       var listIndex = 1;
 	     for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
@@ -374,7 +374,7 @@ client.on('message', message => {
 
     //----------------------Delete-------------------------------
 
-    else if (message.content.startsWith("--delete") || message.content.startsWith("--Delete")) {
+    else if (message.content.toLowerCase().startsWith("--delete")) {
 
 	var del = false;
 	for(var i=0; i<keys.length; i++) {
@@ -444,7 +444,7 @@ client.on('message', message => {
       }
     }
 
-    else if(message.content.startsWith("--guestlist")) {
+    else if(message.content.toLowerCase().startsWith("--guestlist")) {
       for(var i = 0; i<keys.length; i++) {
         k = keys[i];
         var count = 1;
@@ -471,7 +471,7 @@ client.on('message', message => {
     }
 
     //--------------------------Help-------------------------------
-    else if (message.content === '--help' || message.content == "--Help") {
+    else if (message.content.toLowerCase.startsWith('--help')) {
         message.channel.send({
             embed: {
                 color: 3447003,
