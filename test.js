@@ -425,7 +425,13 @@ client.on('message', message => {
         k = keys[i];
         var count = 1;
         if(events[k].eventName.toLowerCase() == message.content.substring(12).toLowerCase()) {
-          var attList = Object.keys(events[k].guestlist);
+          try {
+            var attList = Object.keys(events[k].guestlist);
+          }
+          catch(err) {
+            message.channel.send("No one is going to " + message.content.substring(12) + " :(");
+            break;
+          }
           var idList = events[k].guestlist;
           var bestList = [];
           for(var j=0; j<attList.length;j++) {
