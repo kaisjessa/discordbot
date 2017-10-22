@@ -261,10 +261,9 @@ client.on('message', message => {
       for(var i=0; i<keys.length; i++) {
         var k = keys[i]
         if(events[k].eventName.toLowerCase() == message.content.substring(10)) {
-          var userData[`${userName}`] = userId
-          // var userData = {
-          //   userName: userId
-          // };
+          var userData = {
+            [userName]: userId
+          };
           ref.child(k).child('guestlist').child(userName).set(userData);
         }
       }
