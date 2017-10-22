@@ -48,34 +48,57 @@ client.on('ready', () => {
 
 //--------------------------Reminders------------------------
 
-// var today = new Date()
-//
-// function CheckReminders() {
-//     var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
-//     var currentTimeMinutes = (60 * today.getHours()) + today.getMinutes();
-//     
-//     var infoArray = [];
-//     for (var i = 0; i < keys.length; i++) {
-//         var k = keys[i];
-//         infoArray[0] = events[k].eventName;
-//         infoArray[1] = events[k].eventDate;
-//         infoArray[2] = events[k].eventStart;
-//
-//
-// 	eventStartMinutesArr[] = infoarray[2].split(':');
-// 	eventStartMinutes = (60 * eventStartMinutesArr[0]) + eventStartMinutesArr[1];
-//
-// 	//if its the day of the event and it is 60 minutes away from the start of the event
-// 	if (eventStartMinutes - 60 == currentTimeMinutes && currentDate == infoArray[1]) {
-// 	    SendReminder(infoarray[0], infoArray[1], infoArray[2]);
-// 	}
-//      }
-// }
-//
-// function SendReminder(eventName, eventDate, eventTime) {
-//
-//      message.channel.send("!!Reminder that " + eventName + " starts in an Hour !!");
-// }
+var today = new Date()
+
+function CheckReminders() {
+    var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
+    var currentTimeMinutes = (60 * today.getHours()) + today.getMinutes();
+    
+    var infoArray = [];
+    for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        infoArray[0] = events[k].eventName;
+        infoArray[1] = events[k].eventDate;
+        infoArray[2] = events[k].eventStart;
+	
+	
+	eventStartMinutesArr = [];
+ 	eventStartMinutesArr = infoarray[2].split(':');
+ 	eventStartMinutes = (60 * eventStartMinutesArr[0]) + eventStartMinutesArr[1];
+	
+ 	//if its the day of the event and it is 60 minutes away from the start of the event
+ 	if (eventStartMinutes - 60 == currentTimeMinutes && currentDate == infoArray[1]) {
+ 	     SendReminder(infoarray[0], infoArray[1], infoArray[2]);
+ 	}
+     }
+}
+
+function SendReminder(eventName, eventDate, eventTime) {
+    
+    message.channel.send({
+        embed: {
+            color: 342145,
+            author: {
+                name: "Reminder that " + eventName + " starts in 1 hour",
+		    
+            },
+            title: eventName,
+            //url: "http://google.com",
+            description: name,
+            fields: [
+		{
+		    name: "Date",
+		    value: eventDate
+                },
+		{
+                    name: "Time",
+                    value: eventTime
+                }
+            ],
+	    
+        }
+    });
+}
 
 //Scanning all messages
 client.on('message', message => {
@@ -112,12 +135,28 @@ client.on('message', message => {
 
         //Splitting message to get individual variables
         eventArr = message.content.substring(9).split(", ");
-        var name = eventArr[0];
+
+
+	var name = eventArr[0];
         var date = eventArr[1];
         var start = eventArr[2];
         var duration = eventArr[3];
         var location = eventArr[4];
-        message.channel.send({
+	
+	//Regex Expressions
+
+	var dateREG = new RegExp("\d\d-\d\d-\d\d\d\d");
+	var startdurationREG = new RegExp("\d\d:\d\d");
+ 
+
+	if (dateREG != date || startdurationREG != start || startdurationREG != duration) {
+
+	    message.channel.send("Please follow this date and time format \n Date : `` MM-DD-YYYY`` \n Start Time : ``HH:MM`` \n Duration : ``HH:MM`` ");
+
+	    
+	} else {
+	    
+	message.channel.send({
             embed: {
                 color: 342145,
                 author: {
@@ -127,44 +166,47 @@ client.on('message', message => {
                 title: "Event name",
                 //url: "http://google.com",
                 description: name,
-                fields: [{
-                        name: "Date",
-                        value: date
+                fields: [
+		    {
+			name: "Date",
+			value: date
                     },
-                    {
+		    {
                         name: "Start",
                         value: start
                     },
-                    {
+		    {
                         name: "Duration",
                         value: duration
                     },
-                    {
+		    {
                         name: "Location",
                         value: location
                     }
-
-                ],
+		    
+		],
                 timestamp: new Date(),
                 footer: {
                     icon_url: client.user.avatarURL,
-
+		    
                 }
             }
         });
-
-        console.log("Event array: " + eventArr);
-        //Prepping data for pushing
-        var dataToSub = {
-          eventName: name,
-          eventDate: date,
-          eventStart: start,
-          eventDuration: duration,
-          eventLocation: location
+	    
+            console.log("Event array: " + eventArr);
+            //Prepping data for pushing
+            var dataToSub = {
+            eventName: name,
+            eventDate: date,
+            eventStart: start,
+            eventDuration: duration,
+            eventLocation: location
         };
-
-	//pushing to firebase
-	ref.push(dataToSub);
+	    
+	    //pushing to firebase
+	    ref.push(dataToSub);
+	    
+	}
     }
 
     //----------------------------Info------------------------------
@@ -252,6 +294,9 @@ client.on('message', message => {
 	}
 
     }
+
+
+    //-------------------Guests----------------------------------
 
     else if(message.content.startsWith("--imgoing")) {
       var userId = message.author.id;
