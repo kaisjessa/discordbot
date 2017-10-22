@@ -21,6 +21,7 @@ ref.on('value', gotData, errData);
 
 function gotData(data) {
   events = data.val();
+  console.log("data: " + events);
   keys = Object.keys(events);
   console.log("something good happened Andy");
   console.log(keys);
@@ -274,7 +275,7 @@ client.on('message', message => {
       for(var i = 0; i<keys.length; i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
-          message.channel.send(events[k].guestlist);
+          console.log(events[k].guestlist);
         }
       }
     }
