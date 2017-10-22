@@ -32,7 +32,6 @@ function errData(err) {
 
 }
 
-
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -77,7 +76,6 @@ var today = new Date()
 // }
 
 
-
 //Scanning all messages
 client.on('message', message => {
     
@@ -89,7 +87,7 @@ client.on('message', message => {
         var tempMap = ":(";
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
-            if (events[k].eventName == eventName) {
+            if (events[k].eventName.toLowerCase() == eventName.toLowerCase()) {
               tempMap = events[k].eventLocation;
             }
         }
@@ -176,7 +174,7 @@ client.on('message', message => {
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
-            if (temp.toLowerCase == eventName.toLowerCase) {
+            if (temp.toLowerCase() == eventName.toLowerCase()) {
                 ret = events[k].eventLocation;
                 infoArray[0] = events[k].eventName;
                 infoArray[1] = events[k].eventDate;
@@ -241,7 +239,7 @@ client.on('message', message => {
 	var del = false;
 	for(var i=0; i<keys.length; i++) {
             var k = keys[i];
-            if(!del && events[k].eventName==message.content.substring(9)) {
+            if(!del && events[k].eventName.toLowerCase()==message.content.substring(9).toLowerCase()) {
 		message.channel.send("``"  + events[k].eventName + " has been deleted``");
 		del = true;
 		ref.child(keys[i]).remove();
