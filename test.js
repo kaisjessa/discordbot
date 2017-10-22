@@ -71,7 +71,7 @@ client.on('message', message => {
             if (j != mapString.length - 1) linkString += mapString[j] + '+';
             else linkString += mapString[j];
         }
-        message.channel.send(```linkString```);
+        message.channel.send(linkString);
     }
 
     //Create Command
