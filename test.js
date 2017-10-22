@@ -170,7 +170,7 @@ function SendReminder(eventName, eventDate, eventTime,MinutesToEvent) {
 
 setInterval(function() {
   CheckReminders();
-}, 1000);
+}, 59000);
 
 
 
