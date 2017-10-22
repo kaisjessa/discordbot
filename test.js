@@ -101,6 +101,9 @@ function CheckReminders() {
 	    console.log(infoArray[0] + " - Deleted becaues it is already over");
 	}
 
+	console.log("dateYear: " + dateYear);
+	console.log("todayYear" + today.getFullYear());
+
 
 	if(parseInt(dateYear) < today.getFullYear()){
 	    console.log("Deleting - function problem");
