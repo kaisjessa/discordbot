@@ -360,14 +360,16 @@ client.on('message', message => {
 
     //-------------------Guests----------------------------------
 
-    else if(message.content.startsWith("--imgoing")) {
+    else if(message.content.startsWith("--imgoing") || message.content.startsWith("--Imgoing")) {
       var userId = message.author.id;
       var userName = message.author.username;
+      var eventFound = false;
       message.channel.send("<@" + userId + ">");
 
       for(var i=0; i<keys.length; i++) {
         var k = keys[i]
         if(events[k].eventName.toLowerCase() == message.content.substring(10).toLowerCase()) {
+          eventFound = true;
           var userData = {};
           userData[userName] = userId;
           ref.child(k).child('guestlist').update(userData);
@@ -375,6 +377,25 @@ client.on('message', message => {
         }
       }
 
+      if(eventFound) {
+        message.channel.send("<@" + userId + ">" + ", you have been added to the guest list for " + message.content.substring(10) + "!");
+      }
+
+      else {
+        message.channel.send("<@" + userId + ">" + " Error, event does not exist");
+      }
+
+    }
+
+    else if(message.content.startsWith("--imnotgoing") || message.content.startsWith("--Imnotgoing")) {
+      var correctEvent = message.content.substring(12);
+      var userName = message.author.username;
+      for(var i=0; i<keys.length;i++) {
+        k = keys[i];
+        if(events[k].eventName.toLowerCase()==correctEvent.toLowerCase()) {
+          ref.child(k).child('guestlist').username.remove();
+        }
+      }
     }
 
     else if(message.content.startsWith("--guestlist")) {
@@ -417,18 +438,18 @@ client.on('message', message => {
                             "start - Time the event starts _(e.g. 18:30)_ \n" +
                             "duration - How long the event will be _(e.g. 03:00 (3 Hours))_ \n" +
                             "location - Space separated address of the location _(e.g. 123 Fake Avenue City) \n"
-			
+
                     },
                     {
                         name: "--map [eventname]",
                         value: "Gives you a Google Maps link to the address provided"
                     },
-		    
+
 		    {
                         name: "--listevents",
                         value: "Gives a list of all the current events"
                     },
-		    
+
                     {
                         name: "--delete [eventName]",
                         value: "Deletes that event"
