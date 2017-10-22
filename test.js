@@ -78,7 +78,7 @@ var today = new Date()
 
 //Scanning all messages
 client.on('message', message => {
-    
+
     //Map Command - Returns google map link
     //--------------------------Map-----------------------------------
     if (message.content.startsWith("--map") || message.content.startsWith("--Map")) {
@@ -165,7 +165,7 @@ client.on('message', message => {
 	//pushing to firebase
 	ref.push(dataToSub);
     }
-    
+
     //----------------------------Info------------------------------
     else if (message.content.startsWith("--info") || message.content.startsWith("--Info")) {
         var ret = "It didn't work, buddy.";
@@ -227,7 +227,7 @@ client.on('message', message => {
 	     for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
-            message.channel.send(listIndex + ". " + temp);
+            message.channel.send(listIndex + ". " + temp);=
             listIndex++;
         }
     }
@@ -245,10 +245,18 @@ client.on('message', message => {
 		ref.child(keys[i]).remove();
             }
 	}
-	
+
 	if(!del) {
             message.channel.send("``Event could not be found``");
 	}
+
+    }
+
+    else if(message.content.startsWith("--imgoing")) {
+
+    }
+
+    else if(message.content.startsWith("--whosgoing")) {
 
     }
 
@@ -289,7 +297,15 @@ client.on('message', message => {
                     },
                     {
                         name: "--info [eventName]",
-                        value: "Shows you all the details of the event "
+                        value: "Shows you all the details of the event"
+                    },
+                    {
+                        name: "--imgoing [eventName]",
+                        value: "Adds your name to the guest list"
+                    },
+                    {
+                        name: "--whosgoing [eventName]",
+                        value: "Shows you the guest list"
                     }
 
 
@@ -303,6 +319,10 @@ client.on('message', message => {
                 }
             }
         });
+    }
+
+    else if(message.content.startsWith("--")) {
+      message.channel.send("``Invalid Command``");
     }
 });
 
