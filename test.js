@@ -53,7 +53,7 @@ client.on('ready', () => {
 // function CheckReminders() {
 //     var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
 //     var currentTimeMinutes = (60 * today.getHours()) + today.getMinutes();
-//     
+//
 //     var infoArray = [];
 //     for (var i = 0; i < keys.length; i++) {
 //         var k = keys[i];
@@ -274,7 +274,7 @@ client.on('message', message => {
       for(var i =0; i<keys.length; i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
-          console.log(ref.child(k).child('guestlist').key());
+          console.log(ref.child(k).child('guestlist'));
         }
       }
     }
