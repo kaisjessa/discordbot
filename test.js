@@ -264,7 +264,7 @@ client.on('message', message => {
           var userData = {
             [userName]: userId
           };
-          ref.child(k).child('guestlist').child(userName).set(userData);
+          ref.child(k).child('guestlist').child(userName).push(userData);
         }
       }
 
