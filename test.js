@@ -43,7 +43,9 @@ client.on('ready', () => {
     console.log('I am loaded!');
 });
 
-/* //COMMENTED OUT FOR NOW BUT ITS IMPORTANT DONT DELETE PLS
+//COMMENTED OUT FOR NOW BUT ITS IMPORTANT DONT DELETE PLS
+
+//--------------------------Reminders------------------------
 
 var today = new Date()
 
@@ -60,7 +62,7 @@ function CheckReminders() {
 	
 	
 	eventStartMinutesArr[] = infoarray[2].split(':');
-	eventStartMinutes = (60 *eventStartMinutesArr[0]) + eventStartMinutesArr[1];
+	eventStartMinutes = (60 * eventStartMinutesArr[0]) + eventStartMinutesArr[1];
 
 	//if its the day of the event and it is 60 minutes away from the start of the event
 	if (eventStartMinutes - 60 == currentTimeMinutes && currentDate == infoArray[1]) {
@@ -71,10 +73,10 @@ function CheckReminders() {
 
 function SendReminder(eventName, eventDate, eventTime) {
      
-     message.channel.send('');
+     message.channel.send("!!Reminder that " + eventName + " starts in an Hour !!");
 }
 
-*/
+
 
 
 //Scanning all messages
