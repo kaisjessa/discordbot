@@ -262,7 +262,7 @@ client.on('message', message => {
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
           var guestArr = events[k].guestlist;
           console.log(guestArr);
-          message.channel.send(guestArr[i].bob);
+          message.channel.send(guestArr.bob);
         }
       }
     }
