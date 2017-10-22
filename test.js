@@ -276,7 +276,7 @@ client.on('message', message => {
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
           var attList = Object.keys(events[k].guestlist);
           for(var j=0; j<attList.length;j++) {
-            message.channel.send(attList[i]);
+            message.channel.send(attList[j]);
           }
         }
       }
