@@ -409,25 +409,26 @@ client.on('message', message => {
                 title: "--help",
                 //url: "http://google.com",
                 description: "This is a test embed to showcase what they look like and what they can do.",
-                fields: [{
+                fields: [
+		    {
                         name: "--create [name, date, start, duration, location]",
                         value: "name - Name of the event _(e.g. Halloween)_ \n" +
                             "date - Date the event starts _(e.g. MM-DD-YYYY (31-10-2017))_ \n" +
                             "start - Time the event starts _(e.g. 18:30)_ \n" +
                             "duration - How long the event will be _(e.g. 03:00 (3 Hours))_ \n" +
                             "location - Space separated address of the location _(e.g. 123 Fake Avenue City) \n"
-
+			
                     },
                     {
                         name: "--map [eventname]",
                         value: "Gives you a Google Maps link to the address provided"
                     },
-
-			              {
+		    
+		    {
                         name: "--listevents",
                         value: "Gives a list of all the current events"
                     },
-
+		    
                     {
                         name: "--delete [eventName]",
                         value: "Deletes that event"
@@ -447,9 +448,11 @@ client.on('message', message => {
                     {
                         name: "--imnotgoing [eventName]",
                         value: "Removes you from the guest list"
-                    }
-
-
+                    },
+		    {
+			name: "--CheckReminders",
+			value: "Checks all events for reminder times (this happens anyway every minute)"
+		    }
 
                 ],
 
@@ -471,7 +474,6 @@ client.on('message', message => {
 
 Checklist:
 
-- Setup reminders (mentions in general chat or dms)
 - Firebase - Delete event from database after it is finished
 - Figure out how block Ansh from using bot
 
