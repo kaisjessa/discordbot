@@ -259,7 +259,7 @@ client.on('message', message => {
     else if(message.content.startsWith("--whosgoing")) {
       for(var i =0; i<keys.length; i++) {
         k = keys[i];
-        if(event[k].eventName.toLowerCase() == message.content.substring(12)) {
+        if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
           console.log(events[k].guestlist);
           message.channel.send(events[k].guestlist);
         }
