@@ -82,15 +82,27 @@ function CheckReminders() {
 
 	eventStartMinutesArr = [];
  	eventStartMinutesArr = infoArray[2].split(':');
-  var eventStartMinutes = (60 * parseInt(eventStartMinutesArr[0])) + parseInt(eventStartMinutesArr[1]);
-  console.log("EVENT NAME: " + infoArray[0]);
-  console.log("eventStartMinutes: " + eventStartMinutes);
-  console.log("currentTimeMinutes: " + currentTimeMinutes);
-  console.log("currentDate: " + currentDate);
-  console.log("eventDate: " + infoArray[1]);
+	var eventStartMinutes = (60 * parseInt(eventStartMinutesArr[0])) + parseInt(eventStartMinutesArr[1]);
+	console.log("EVENT NAME: " + infoArray[0]);
+	console.log("eventStartMinutes: " + eventStartMinutes);
+	console.log("currentTimeMinutes: " + currentTimeMinutes);
+	console.log("currentDate: " + currentDate);
+	console.log("eventDate: " + infoArray[1]);
 
- 	//if its the day of the event and it is 60 minutes away from the start of the event
- 	if ((((eventStartMinutes - 60) == currentTimeMinutes) ||
+
+	//Check if event is already over and needs to be deleted:
+	if (currentTimeMinutes > eventStartMinutes) {
+	    
+	    ref.child(keys[i]).remove();
+	    
+	    //delete event
+	    console.log(infoArray[0] + " - Deleted becaues it is already over");
+	}
+
+
+
+	//if its the day of the event and it is 60 minutes away from the start of the event
+ 	else if ((((eventStartMinutes - 60) == currentTimeMinutes) ||
   ((eventStartMinutes - 30) == currentTimeMinutes) ||
   ((eventStartMinutes - 10) == currentTimeMinutes) ||
   (eventStartMinutes == currentTimeMinutes))
