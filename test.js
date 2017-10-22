@@ -471,7 +471,7 @@ client.on('message', message => {
     }
 
     //--------------------------Help-------------------------------
-    else if (message.content.toLowerCase.startsWith('--help')) {
+    else if (message.content.toLowerCase().startsWith('--help')) {
         message.channel.send({
             embed: {
                 color: 3447003,
