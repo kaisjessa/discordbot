@@ -43,6 +43,7 @@ client.on('ready', () => {
     console.log('I am loaded!');
 });
 
+
 //COMMENTED OUT FOR NOW BUT ITS IMPORTANT DONT DELETE PLS
 
 //--------------------------Reminders------------------------
@@ -75,9 +76,6 @@ function SendReminder(eventName, eventDate, eventTime) {
      
      message.channel.send("!!Reminder that " + eventName + " starts in an Hour !!");
 }
-
-
-
 
 //Scanning all messages
 client.on('message', message => {
@@ -256,13 +254,28 @@ client.on('message', message => {
     }
 
     else if(message.content.startsWith("--imgoing")) {
+      var userId = message.author.id;
+      var userName = message.author.username;
+      message.channel.send("<@" + userId + ">");
+      console.log(userId);
+
+      for(var i=0; i<keys.length; i++) {
+        var k = keys[i]
+        if(events[k].eventName.toLowerCase() == message.content.substring(10)) {
+          var userData = {};
+          userData[userName] = userId;
+          ref.child(k).child('guestlist').update(userData);
+        }
+      }
 
     }
 
-    else if(message.content.startsWith("--whosgoing")) {
+    else if(message.content.startsWith("--guestlist")) {
       for(var i =0; i<keys.length; i++) {
         k = keys[i];
-        console.log(events.child(guestlist));
+        if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
+          console.log(ref.child(k).child('guestlist'))
+        }
       }
     }
 
@@ -310,8 +323,12 @@ client.on('message', message => {
                         value: "Adds your name to the guest list"
                     },
                     {
-                        name: "--whosgoing [eventName]",
+                        name: "--guestlist [eventName]",
                         value: "Shows you the guest list"
+                    },
+                    {
+                        name: "--imnotgoing [eventName]",
+                        value: "Removes you from the guest list"
                     }
 
 
