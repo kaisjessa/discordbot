@@ -87,24 +87,26 @@ client.on('message', message => {
     //Map Command - Returns google map link
     //--------------------------Map-----------------------------------
     if (message.content.startsWith("--map")) {
-        var eventName = message.content.substring(5);
+        var eventName = message.content.substring(6);
         var linkString = "https://www.google.ca/maps/place/";
+        var tempMap = ":(";
         for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
-            var temp = events[k].eventName;
-            if (temp == eventName) {
-              var tempMap = events[k].eventLocation;
-              break;
+            if (events[k].eventName == eventName) {
+              tempMap = events[k].eventLocation;
             }
         }
 
         var mapString = new Array();
-        mapString = tempMap.split(" ");
-        for (var j = 0; j < mapString.length; j++) {
-            if (j != mapString.length - 1) linkString += mapString[j] + '+';
-            else linkString += mapString[j];
-        }
-        message.channel.send(```linkString```);
+        if(tempMap == ":(") message.channel.send("No event specified :(");
+        else {
+          mapString = tempMap.split(" ");
+          for (var j = 0; j < mapString.length; j++) {
+              if (j != mapString.length - 1) linkString += mapString[j] + '+';
+              else linkString += mapString[j];
+            }
+            message.channel.send(linkString);
+      }
     }
 
     //Create Command
@@ -234,6 +236,23 @@ ref.push(dataToSub);
         }
     }
 
+    else if (message.content.startsWith("--delete")) {
+	var del = false;
+	for(int i=0; i<keys.length; i++) {
+          var k = keys[i];
+          if(!del && events[k].eventName==message.content.substring(9)) {
+            message.channel.send("``"  + events[k].eventName + " has been deleted``");
+            del = true;
+            ref.child(keys[i]).remove();
+        }
+      }
+
+	if(!del) {
+            message.channel.send("``Event could not be found``");
+	}
+
+    }
+
     //--------------------------Help-------------------------------
     else if (message.content === '--help') {
         message.channel.send({
@@ -247,11 +266,7 @@ ref.push(dataToSub);
                 //url: "http://google.com",
                 description: "This is a test embed to showcase what they look like and what they can do.",
                 fields: [{
-                        name: "--exit",
-                        value: "Closes the bot"
-                    },
-                    {
-                        name: "--event [name, date, start, duration, location]",
+                        name: "--create [name, date, start, duration, location]",
                         value: "name - Name of the event _(e.g. Halloween)_ \n" +
                             "date - Date the event starts _(e.g. Oct 31 2017)_ \n" +
                             "start - Time the event starts _(e.g. 18:30)_ \n" +
@@ -264,9 +279,14 @@ ref.push(dataToSub);
                         value: "Gives you a Google Maps link to the address provided"
                     },
 
-			 {
+			              {
                         name: "--listevents",
                         value: "Gives a list of all the current events"
+                    },
+
+                    {
+                        name: "--delete [eventName]",
+                        value: "Deletes that event"
                     }
 
                 ],
@@ -295,4 +315,4 @@ Checklist:
 
 
 
-client.login('MzcxMzU3OTA2NDkyMTk0ODI3.DM0dvg.yn6MJW5Upj_imhAz93izoEcWCw4');
+client.login('MzcxNDYyMzY0NjA5OTA0NjYx.DM1_QQ.ihUJA1Pdl_BRyf12zGclLhgA05c');
