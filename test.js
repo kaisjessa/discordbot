@@ -54,19 +54,19 @@ var today = new Date()
 function CheckReminders() {
     var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
     var currentTimeMinutes = (60 * today.getHours()) + today.getMinutes();
-    
+
     var infoArray = [];
     for (var i = 0; i < keys.length; i++) {
         var k = keys[i];
         infoArray[0] = events[k].eventName;
         infoArray[1] = events[k].eventDate;
         infoArray[2] = events[k].eventStart;
-	
-	
+
+
 	eventStartMinutesArr = [];
  	eventStartMinutesArr = infoarray[2].split(':');
  	eventStartMinutes = (60 * eventStartMinutesArr[0]) + eventStartMinutesArr[1];
-	
+
  	//if its the day of the event and it is 60 minutes away from the start of the event
  	if (eventStartMinutes - 60 == currentTimeMinutes && currentDate == infoArray[1]) {
  	     SendReminder(infoarray[0], infoArray[1], infoArray[2]);
@@ -75,13 +75,13 @@ function CheckReminders() {
 }
 
 function SendReminder(eventName, eventDate, eventTime) {
-    
+
     message.channel.send({
         embed: {
             color: 342145,
             author: {
                 name: "Reminder that " + eventName + " starts in 1 hour",
-		    
+
             },
             title: eventName,
             //url: "http://google.com",
@@ -96,7 +96,7 @@ function SendReminder(eventName, eventDate, eventTime) {
                     value: eventTime
                 }
             ],
-	    
+
         }
     });
 }
@@ -144,20 +144,23 @@ client.on('message', message => {
         var start = eventArr[2];
         var duration = eventArr[3];
         var location = eventArr[4];
-	
+
 	//Regex Expressions
 
-	var dateREG = new RegExp("\d\d-\d\d-\d\d\d\d");
-	var startdurationREG = new RegExp("\d\d:\d\d");
- 
 
-	if (dateREG != date || startdurationREG != start || startdurationREG != duration) {
+  //var dateREG = new RegExp("\d\d-\d\d-\d\d\d\d");
+  var dateREG = "/\d\d-\d\d-\d\d\d\d/";
+	//var startdurationREG = new RegExp("\d\d:\d\d");
+  var startdurationREG = "/\d\d:\d\d/";
+
+
+	if (!/\d\d-\d\d-\d\d\d\d/.test(date)|| !/\d\d:\d\d/.test(start) || !/\d\d:\d\d/.test(duration)) {
 
 	    message.channel.send("Please follow this date and time format \n Date : `` MM-DD-YYYY`` \n Start Time : ``HH:MM`` \n Duration : ``HH:MM`` ");
 
-	    
+
 	} else {
-	    
+
 	message.channel.send({
             embed: {
                 color: 342145,
@@ -185,16 +188,16 @@ client.on('message', message => {
                         name: "Location",
                         value: location
                     }
-		    
+
 		],
                 timestamp: new Date(),
                 footer: {
                     icon_url: client.user.avatarURL,
-		    
+
                 }
             }
         });
-	    
+
             console.log("Event array: " + eventArr);
             //Prepping data for pushing
             var dataToSub = {
@@ -204,10 +207,10 @@ client.on('message', message => {
             eventDuration: duration,
             eventLocation: location
         };
-	    
+
 	    //pushing to firebase
 	    ref.push(dataToSub);
-	    
+
 	}
     }
 
