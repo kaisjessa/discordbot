@@ -89,9 +89,9 @@ function CheckReminders() {
 
 	var dateArr = [];
 	dateArr = infoArray[1].split('-');
-	var dateMonth = dateArr[0];
-	var dateDay = dateArr[1];
-	var dateYear = dateArr[2];
+	var dateMonth = parseInt(dateArr[0]);
+	var dateDay = parseInt(dateArr[1]);
+	var dateYear = parseInt(dateArr[2]);
 
 	function deleteMessage() {
 
