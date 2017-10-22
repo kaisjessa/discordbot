@@ -254,9 +254,19 @@ client.on('message', message => {
 
     else if(message.content.startsWith("--imgoing")) {
       k = keys[i];
-      var user = message.author.id;
-      message.channel.send("<@" + user + ">");
-      console.log(user);
+      var userId = message.author.id;
+      var userName = message.author.username;
+      message.channel.send("<@" + userId + ">");
+      console.log(userId);
+
+      for(var i=0; i<keys.length; i++) {
+        if(events[k].eventName.toLowerCase() == message.content.substring(10)) {
+          var userData = {
+            userName: userId
+          };
+          events[k].guestlist.push(userData);
+        }
+      }
 
     }
 
@@ -267,6 +277,7 @@ client.on('message', message => {
           var guestArr = events[k].guestlist;
           console.log(guestArr);
           message.channel.send(guestArr.bob);
+          //show the guestlist
         }
       }
     }
