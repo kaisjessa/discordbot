@@ -111,6 +111,19 @@ client.on('message', message => {
                 }
             }
         });
+
+        console.log("Event array: " + eventArr);
+        //Prepping data for pushing
+        var dataToSub = {
+          eventName: name,
+          eventDate: date,
+          eventStart: start,
+          eventDuration: duration,
+          eventLocation: location
+        };
+
+//pushing to firebase
+ref.push(dataToSub);
     }
     //----------------------------Info------------------------------
     else if (message.content.startsWith("--info")) {
