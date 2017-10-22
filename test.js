@@ -273,13 +273,14 @@ client.on('message', message => {
     else if(message.content.startsWith("--guestlist")) {
       for(var i = 0; i<keys.length; i++) {
         k = keys[i];
+        var count = 1;
         if(events[k].eventName.toLowerCase() == message.content.substring(12)) {
           var attList = Object.keys(events[k].guestlist);
           var idList = [];
           for(var j=0; j<attList.length;j++) {
-            idList[j] = events[k].guestlist.[attList[j]];
             console.log(idList);
-            message.channel.send('@' + attList[j]);
+            message.channel.send(count + ". " + attList[j]);
+            count++;
           }
         }
       }
