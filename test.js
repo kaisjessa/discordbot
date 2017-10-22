@@ -206,6 +206,11 @@ client.on('message', message => {
                     {
                         name: "--map [space seperated address]",
                         value: "Gives you a Google Maps link to the address provided"
+                    },
+
+			 {
+                        name: "--listevents",
+                        value: "Gives a list of all the current events"
                     }
 
                 ],
