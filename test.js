@@ -22,13 +22,12 @@ ref.on('value', gotData, errData);
 function gotData(data) {
   events = data.val();
   keys = Object.keys(events);
-  console.log("something good happened Andy");
-  console.log(keys);
+  //console.log("something good happened Andy");
+  console.log("Event Keys: " + keys);
 }
 
 function errData(err) {
-  console.log("sad face");
-  console.log(err);
+  console.log("ERROR " + err);
 
 }
 
@@ -92,9 +91,9 @@ function CheckReminders() {
 
 	//Check if event is already over and needs to be deleted:
 	if (currentTimeMinutes > eventStartMinutes) {
-	    
+
 	    ref.child(keys[i]).remove();
-	    
+
 	    //delete event
 	    console.log(infoArray[0] + " - Deleted becaues it is already over");
 	}
@@ -116,7 +115,7 @@ function CheckReminders() {
 
 function SendReminder(eventName, eventDate, eventTime,MinutesToEvent) {
 
-  console.log("yep");
+  console.log("Reminders have been sent");
 
   //for each person in the guestlist send a reminder to them
 
@@ -273,7 +272,7 @@ client.on('message', message => {
           var userData = {};
           userData[userName] = userId;
           ref.child(k).child('guestlist').update(userData);
-          console.log("IT WORKED ZACH: " + userData);
+          console.log("User Data: " + userData);
         }
       }
 
@@ -405,20 +404,18 @@ client.on('message', message => {
       for(var i=0; i<keys.length;i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase()==correctEvent.toLowerCase()) {
-          console.log("Stage 1");
           var attList = Object.keys(events[k].guestlist);
           var idList = events[k].guestlist;
           var bestList = [];
           for(var j=0; j<attList.length;j++) {
             //attlist[j] = userName;
             if(userName==attList[j] || userId==idList[attList[j]]) {
-              console.log("SOMETHING");
               ref.child(k).child('guestlist').child(userName).remove();
               message.channel.send("<@" + userId + ">" + ", you have been removed from the guest list for " + correctEvent);
+              console.log("@" + userName + " has been removed from the guest list for " + correctEvent);
             }
 
           }
-          console.log(bestList);
         }
       }
     }
@@ -438,7 +435,7 @@ client.on('message', message => {
 
             count++;
           }
-          console.log(bestList);
+          console.log("Ids: " + bestList);
         }
       }
     }
