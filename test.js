@@ -34,6 +34,8 @@ function errData(err) {
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
+//var $ = require('jQuery');
+
 
 
 // Adding Discord.js
@@ -41,6 +43,7 @@ const client = new Discord.Client();
 //Setup Message
 client.on('ready', () => {
     console.log('I am loaded!');
+
 });
 
 
@@ -49,10 +52,12 @@ client.on('ready', () => {
 //--------------------------Reminders------------------------
 
 
-var today = new Date()
+
 
 function CheckReminders() {
-    var currentDate = today.getFullMonth() + '-' + today.getFullDate() + '-' + today.getFullYear();
+    var today = new Date()
+    console.log("Checking Reminders but it may not work");
+    var currentDate = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
     var currentTimeMinutes = (60 * today.getHours()) + today.getMinutes();
 
     var infoArray = [];
@@ -64,42 +69,38 @@ function CheckReminders() {
 
 
 	eventStartMinutesArr = [];
- 	eventStartMinutesArr = infoarray[2].split(':');
- 	eventStartMinutes = (60 * eventStartMinutesArr[0]) + eventStartMinutesArr[1];
-
+ 	eventStartMinutesArr = infoArray[2].split(':');
+  var eventStartMinutes = (60 * parseInt(eventStartMinutesArr[0])) + parseInt(eventStartMinutesArr[1]);
+  console.log("eventStartMinutes: " + eventStartMinutes);
+  console.log("currentTimeMinutes: " + currentTimeMinutes);
+  console.log("currentDate: " + currentDate);
+  console.log("eventDate: " + infoArray[1]);
  	//if its the day of the event and it is 60 minutes away from the start of the event
- 	if (eventStartMinutes - 60 == currentTimeMinutes && currentDate == infoArray[1]) {
- 	     SendReminder(infoarray[0], infoArray[1], infoArray[2]);
+ 	if (eventStartMinutes - 60 < currentTimeMinutes && currentDate == infoArray[1] && currentTimeMinutes < eventStartMinutes) {
+       console.log("reminder sent");
+ 	     SendReminder(infoArray[0], infoArray[1], infoArray[2]);
  	}
      }
 }
 
 function SendReminder(eventName, eventDate, eventTime) {
+  console.log("yep");
 
-    message.channel.send({
-        embed: {
-            color: 342145,
-            author: {
-                name: "Reminder that " + eventName + " starts in 1 hour",
+  let str = "<@192460832490258432>"; //Just assuming some random tag.
 
-            },
-            title: eventName,
-            //url: "http://google.com",
-            description: name,
-            fields: [
-		{
-		    name: "Date",
-		    value: eventDate
-                },
-		{
-                    name: "Time",
-                    value: eventTime
-                }
-            ],
+//removing any sign of < @ ! >...
+//the exclamation symbol comes if the user has a nickname on the server.
+let id = str.replace(/[<@!>]/g, '');
 
-        }
-    });
+client.fetchUser(id)
+    .then(user => {user.send("Hello I dmed you!")})
+
 }
+
+setInterval(function() {
+  CheckReminders();
+}, 5000);
+
 
 
 //Scanning all messages
