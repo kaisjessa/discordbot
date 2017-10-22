@@ -76,9 +76,6 @@ function CheckReminders() {
 
         //Grab Guestlist information and add to array
 
-
-
-
 	eventStartMinutesArr = [];
  	eventStartMinutesArr = infoArray[2].split(':');
 	var eventStartMinutes = (60 * parseInt(eventStartMinutesArr[0])) + parseInt(eventStartMinutesArr[1]);
@@ -88,9 +85,14 @@ function CheckReminders() {
 	console.log("currentDate: " + currentDate);
 	console.log("eventDate: " + infoArray[1]);
 
+	
+	var dateArr = [];
+	dateArr = infoArray[1].split('-');
+	var dateMonth = dateArr[0];
+	var dateDay = dateArr[1];
+	var dateYear = dateArr[3]; 
 
-	//Check if event is already over and needs to be deleted:
-	if (currentTimeMinutes > eventStartMinutes) {
+	function deleteMessage() {
 
 	    ref.child(keys[i]).remove();
 
@@ -99,16 +101,25 @@ function CheckReminders() {
 	}
 
 
+	if(parseInt(dateYear) < today.getFullYear()){
+	    deleteMessage();
+	} else if (parseInt(dateYear) == today.getFullYear() && parseInt(dateMonth) < today.getMonth()){
+	    deleteMessage();
+	} else if (parseInt(dateMonth) == today.getMonth() && parseInt(dateDay) < today.getDate()){
+	    deleteMessage();   
+	} else if (parseInt(dateDay) == today.getDate && currentTimeMinutes > eventStartMinutes){
+	    deleteMessage();
+	}
 
 	//if its the day of the event and it is 60 minutes away from the start of the event
  	else if ((((eventStartMinutes - 60) == currentTimeMinutes) ||
-  ((eventStartMinutes - 30) == currentTimeMinutes) ||
-  ((eventStartMinutes - 10) == currentTimeMinutes) ||
-  (eventStartMinutes == currentTimeMinutes))
-  && currentDate == infoArray[1] && currentTimeMinutes < eventStartMinutes) {
+		  ((eventStartMinutes - 30) == currentTimeMinutes) ||
+		  ((eventStartMinutes - 10) == currentTimeMinutes) ||
+		  (eventStartMinutes == currentTimeMinutes))
+		 && currentDate == infoArray[1] && currentTimeMinutes < eventStartMinutes) {
 
-       console.log("reminder sent");
- 	     SendReminder(infoArray[0], infoArray[1], infoArray[2],(eventStartMinutes - currentTimeMinutes));
+	    console.log("reminder sent");
+ 	    SendReminder(infoArray[0], infoArray[1], infoArray[2],(eventStartMinutes - currentTimeMinutes));
  	}
      }
 }
