@@ -262,9 +262,9 @@ client.on('message', message => {
         var k = keys[i]
         if(events[k].eventName.toLowerCase() == message.content.substring(10)) {
           var userData = {
-            userName: userId
+            userId: userId
           };
-          ref.child(k).child('guestlist').push(userData);
+          ref.child(k).child('guestlist').child(userName).set(userData);
         }
       }
 
