@@ -182,12 +182,18 @@ ref.push(dataToSub);
     //-----------------------ListEvents---------------------------
 
     else if (message.content == '--listevents') {
-	for (var i = 0; i < keys.length; i++) {
+      var listIndex = 1;
+	     for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             var temp = events[k].eventName;
-	    var ii = i + 1;
-            message.channel.send(ii + ': ' +temp);
+            message.channel.send(listIndex + " " + temp);
+            listIndex++;
         }
+
+
+
+
+
     }
 
 
