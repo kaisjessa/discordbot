@@ -260,7 +260,7 @@ client.on('message', message => {
     else if(message.content.startsWith("--whosgoing")) {
       for(var i =0; i<keys.length; i++) {
         k = keys[i];
-        console.log(events[guestlist]);
+        console.log(events.child(guestlist));
       }
     }
 
