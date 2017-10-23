@@ -498,7 +498,7 @@ client.on('message', message => {
                 },
                 title: "--help",
                 //url: "http://google.com",
-                description: "This is a test embed to showcase what they look like and what they can do.",
+                description: "This page lists all the EventBot commands",
                 fields: [
 		    {
                         name: "--create [name, date, start, duration, location]",
