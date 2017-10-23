@@ -361,7 +361,7 @@ client.on('message', message => {
       }
 
       else {
-        message.channel.send("ERROR: " + eventName + " is not an existing event");
+        message.channel.send("Event " + eventName + " could not be found");
       }
     }
 
@@ -369,11 +369,16 @@ client.on('message', message => {
 
     else if (message.content.toLowerCase().startsWith('--listevents')) {
       var listIndex = 1;
+      var eventsExist = false;
 	     for (var i = 0; i < keys.length; i++) {
+            eventsExist = true;
             var k = keys[i];
             var temp = events[k].eventName;
             message.channel.send("```" + listIndex + ". " + temp + "```");
             listIndex++;
+        }
+        if(!eventsExist) {
+          message.channel.send("```No events exist. Create one using: '--create'```");
         }
     }
 
@@ -385,14 +390,14 @@ client.on('message', message => {
 	for(var i=0; i<keys.length; i++) {
             var k = keys[i];
             if(!del && events[k].eventName.toLowerCase()==message.content.substring(9).toLowerCase()) {
-		message.channel.send("``"  + events[k].eventName + " has been deleted``");
+		message.channel.send("```"  + events[k].eventName + " has been deleted```");
 		del = true;
 		ref.child(keys[i]).remove();
             }
 	}
 
 	if(!del) {
-            message.channel.send("``Event could not be found``");
+            message.channel.send("```Event " + message.content.substring(9) + " could not be found```");
 	}
 
     }
@@ -421,18 +426,20 @@ client.on('message', message => {
       }
 
       else {
-        message.channel.send("<@" + userId + ">" + " Error, event does not exist");
+        message.channel.send("<@" + userId + ">" + " Error, event " + message.content.substring(10) + " could not be found");
       }
 
     }
 
     else if(message.content.toLowerCase().startsWith("--imnotgoing")) {
+      var eventExists = false;
       var correctEvent = message.content.substring(13)
       var userName = message.author.username;
       var userId = message.author.id;
       for(var i=0; i<keys.length;i++) {
         k = keys[i];
         if(events[k].eventName.toLowerCase()==correctEvent.toLowerCase()) {
+          eventExists = true;
           var attList = Object.keys(events[k].guestlist);
           var idList = events[k].guestlist;
           var bestList = [];
@@ -447,13 +454,16 @@ client.on('message', message => {
           }
         }
       }
+      if(!eventExists) message.channel.send("```Event " + correctEvent +  " could not be found```")
     }
 
     else if(message.content.toLowerCase().startsWith("--guestlist")) {
+      var eventExists = false;
       for(var i = 0; i<keys.length; i++) {
         k = keys[i];
         var count = 1;
         if(events[k].eventName.toLowerCase() == message.content.substring(12).toLowerCase()) {
+          eventExists = true;
           try {
             var attList = Object.keys(events[k].guestlist);
           }
@@ -473,6 +483,8 @@ client.on('message', message => {
           console.log("Ids: " + bestList);
         }
       }
+
+      if(!eventExists) message.channel.send("```Event " + message.content.substring(12) + " could not be found```");
     }
 
     //--------------------------Help-------------------------------
@@ -540,7 +552,7 @@ client.on('message', message => {
     }
 
     else if(message.content.startsWith("--")) {
-      message.channel.send("``Invalid Command``");
+      message.channel.send("```Invalid Command```");
     }
 });
 
