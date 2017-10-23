@@ -1,0 +1,24 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "A discord bot",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaisjessa/discordbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaisjessa/discordbot/issues"
+  },
+  "homepage": "https://github.com/kaisjessa/discordbot#readme",
+  "dependencies": {
+    "firebase": "^4.6.0",
+    "jQuery": "^1.7.4",
+    "jquery": "^3.2.1"
+  }
+}

@@ -173,7 +173,6 @@ setInterval(function() {
 }, 59000);
 
 
-
 //Scanning all messages
 client.on('message', message => {
 
