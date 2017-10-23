@@ -15,7 +15,8 @@ var firebase = require('firebase').initializeApp({
 });
 
 var database = firebase.database();
-var ref = database.ref('events');
+var channelId = Channel.id;
+var ref = database.ref(channelId);
 
 ref.on('value', gotData, errData);
 
