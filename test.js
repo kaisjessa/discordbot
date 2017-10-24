@@ -15,6 +15,7 @@ var firebase = require('firebase').initializeApp({
 });
 
 var database = firebase.database();
+// change this to server id, NOT channel
 var channelId = Channel.id;
 var ref = database.ref(channelId);
 
