@@ -551,8 +551,7 @@ client.on('message', message => {
 
 Checklist:
 
-- Firebase - Delete event from database after it is finished
-- Figure out how block Ansh from using bot
+- Figure out how to separate events by server by using server IDs as nodes in Firebase
 
 
 */
