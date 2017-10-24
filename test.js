@@ -19,8 +19,8 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 var database = firebase.database();
-// change this to server id, NOT channel
-var channelId = Channel.id;
+// change this to server id
+var channelId = 'events';
 var ref = database.ref(channelId);
 
 ref.on('value', gotData, errData);
