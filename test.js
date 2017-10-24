@@ -14,6 +14,10 @@ var firebase = require('firebase').initializeApp({
 
 });
 
+
+const Discord = require('discord.js');
+const client = new Discord.Client();
+
 var database = firebase.database();
 // change this to server id, NOT channel
 var channelId = Channel.id;
@@ -33,8 +37,6 @@ function errData(err) {
 
 }
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
 //var $ = require('jQuery');
 
 
