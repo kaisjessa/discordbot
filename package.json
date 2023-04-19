@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/kaisjessa/discordbot#readme",
   "dependencies": {
-    "firebase": "^4.6.0",
+    "firebase": "^9.20.0",
     "jQuery": "^1.7.4",
     "jquery": "^3.2.1"
   }
